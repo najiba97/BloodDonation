@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "371429654845",
+    "project_id": "sangplusplusfinal",
+    "storage_bucket": "sangplusplusfinal.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:371429654845:android:1769cff72ba15f834c8554",
+        "android_client_info": {
+          "package_name": "com.donate.sang_plus_plus"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "371429654845-quo56uq98f1ir3t3buq3smkm8jfbaul6.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAsmvozLt9VGt4PwReeEfrkbEepI6k7tvE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "371429654845-quo56uq98f1ir3t3buq3smkm8jfbaul6.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
