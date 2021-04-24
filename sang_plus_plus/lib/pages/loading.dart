@@ -1,7 +1,7 @@
 import 'dart:async';
 
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_core/firebase_core.dart';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:provider/provider.dart';
@@ -16,7 +16,8 @@ class _LoadingState extends State<Loading> {
   @override
   void initState() {
     super.initState();
-
+    /* l'instance auth de firebase va nous donner l'etat de user null ou pas
+    par la methode authStateChanges.listen((User use)) */
     auth.authStateChanges().listen((User user) {
       if (user == null) {
         Timer(Duration(seconds: 3), () {
@@ -32,8 +33,6 @@ class _LoadingState extends State<Loading> {
 
   @override
   Widget build(BuildContext context) {
-    final user = Provider.of<User>(context);
-    print('user $user');
     return Scaffold(
       backgroundColor: Colors.red[900],
       body: Center(

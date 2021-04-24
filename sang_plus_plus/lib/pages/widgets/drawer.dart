@@ -1,10 +1,13 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class MyDrawer extends StatelessWidget {
   const MyDrawer({Key key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    final user = Provider.of<User>(context);
     return Drawer(
       child: ListView(
         children: [
@@ -60,7 +63,29 @@ class MyDrawer extends StatelessWidget {
                         fontSize: 16.0,
                         fontFamily: 'PlayfairDisplay-Regular.ttf')),
                 onTap: () {
-                  Navigator.pushNamed(context, '/rendez');
+                  if (user == null) {
+                    AlertDialog(
+                      title: Text('AlertDialog Title'),
+                      content: SingleChildScrollView(
+                        child: ListBody(
+                          children: <Widget>[
+                            Text('This is a demo alert dialog.'),
+                            Text('Would you like to approve of this message?'),
+                          ],
+                        ),
+                      ),
+                      actions: <Widget>[
+                        TextButton(
+                          child: Text('Approve'),
+                          onPressed: () {
+                            Navigator.of(context).pop();
+                          },
+                        ),
+                      ],
+                    );
+                  } else {
+                    Navigator.pushNamed(context, '/rendez');
+                  }
                 },
               ),
               ListTile(

@@ -1,10 +1,9 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:sang_plus_plus/pages/services/auth_service.dart';
-import 'package:sang_plus_plus/pages/widgets/connected_nav.dart';
 
-import '../services/bottomNavigator.dart';
+import 'package:sang_plus_plus/pages/widgets/connected_nav.dart';
+import 'package:sang_plus_plus/services/bottomNavigator.dart';
 
 class MyBottom extends StatelessWidget {
   final int indexPage;

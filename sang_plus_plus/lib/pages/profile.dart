@@ -3,9 +3,10 @@ import 'dart:io';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:sang_plus_plus/pages/services/database.dart';
-import 'services/bottomNavigator.dart';
+
 import 'package:image_picker/image_picker.dart';
+import 'package:sang_plus_plus/services/bottomNavigator.dart';
+import 'package:sang_plus_plus/services/database.dart';
 
 import 'widgets/bottom.dart';
 

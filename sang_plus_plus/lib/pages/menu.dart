@@ -2,11 +2,12 @@ import 'package:chewie/chewie.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:sang_plus_plus/pages/services/auth_service.dart';
+
 import 'package:sang_plus_plus/pages/widgets/bottom.dart';
 import 'package:sang_plus_plus/pages/widgets/cirular_load.dart';
 
 import 'package:sang_plus_plus/pages/widgets/drawer.dart';
+import 'package:sang_plus_plus/services/auth_service.dart';
 import 'package:video_player/video_player.dart';
 
 class Menu extends StatefulWidget {

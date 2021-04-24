@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:sang_plus_plus/pages/services/bottomNavigator.dart';
 import 'package:sang_plus_plus/pages/widgets/bottom.dart';
+import 'package:sang_plus_plus/services/bottomNavigator.dart';
 
 class Quiz extends StatefulWidget {
   @override
