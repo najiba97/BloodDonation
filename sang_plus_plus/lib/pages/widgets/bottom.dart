@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import 'package:sang_plus_plus/pages/widgets/connected_nav.dart';
-import 'package:sang_plus_plus/services/bottomNavigator.dart';
+import 'package:sang_plus_plus/services/bottom_navigator.dart';
 
 class MyBottom extends StatelessWidget {
   final int indexPage;

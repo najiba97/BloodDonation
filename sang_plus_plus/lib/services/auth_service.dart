@@ -19,11 +19,11 @@ class AuthServices {
     try {
       UserCredential userCredential = await _auth
           .createUserWithEmailAndPassword(email: email, password: password);
+      print(userCredential);
       User fireUser = userCredential.user;
       MyUser myUser = _createUserFromFireUser(fireUser);
       UserData(uid: myUser.uid)
           .updateUser(nom, prenom, telephone, email, password);
-      authUid = myUser.uid;
       return myUser.uid;
     } catch (e) {
       print(e.toString());

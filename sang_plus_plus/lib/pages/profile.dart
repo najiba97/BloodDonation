@@ -5,7 +5,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 import 'package:image_picker/image_picker.dart';
-import 'package:sang_plus_plus/services/bottomNavigator.dart';
+import 'package:sang_plus_plus/services/bottom_navigator.dart';
 import 'package:sang_plus_plus/services/database.dart';
 
 import 'widgets/bottom.dart';
@@ -54,7 +54,7 @@ class _ProfileState extends State<Profile> {
               .doc(_uid)
               .snapshots(),
           builder: (context, snapshot) {
-            if (!snapshot.hasData) {
+            if (snapshot.hasData == false) {
               return Text('Loading data .. please wait');
             } else {
               var document = snapshot.data;
