@@ -64,6 +64,8 @@ class _QuizFemmeState extends State<QuizFemme> {
                         setState(() {
                           x--;
                         });
+                      } else {
+                        Navigator.pop(context);
                       }
                     },
                     icon: Icon(Icons.keyboard_return)),
@@ -82,9 +84,11 @@ class _QuizFemmeState extends State<QuizFemme> {
             Center(
               child: Padding(
                 padding: const EdgeInsets.fromLTRB(15, 0, 0, 0),
-                child: Text(
-                  '${txt[x]}',
-                  style: TextStyle(fontSize: 16.0),
+                child: Center(
+                  child: Text(
+                    '${txt[x]}',
+                    style: TextStyle(fontSize: 16.0),
+                  ),
                 ),
               ),
             ),
@@ -93,7 +97,17 @@ class _QuizFemmeState extends State<QuizFemme> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 TextButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      return showDialog(
+                          context: context,
+                          builder: (BuildContext context) {
+                            return AlertDialog(
+                              title: Text('Attention'),
+                              content: Text(
+                                  'Malheureusement, vous n\'êtes pas prêt à donner du sang'),
+                            );
+                          });
+                    },
                     child: Text(
                       'oui',
                       style: TextStyle(color: Colors.white),
@@ -113,6 +127,24 @@ class _QuizFemmeState extends State<QuizFemme> {
                         setState(() {
                           x++;
                         });
+                      } else {
+                        return showDialog(
+                            context: context,
+                            builder: (BuildContext context) {
+                              return AlertDialog(
+                                title: Text('Félicitation'),
+                                content:
+                                    Text('vous êtes prêt à donner du sang'),
+                                actions: [
+                                  TextButton.icon(
+                                      onPressed: () {
+                                        Navigator.pushNamed(context, '/menu');
+                                      },
+                                      icon: Icon(Icons.home),
+                                      label: Text(''))
+                                ],
+                              );
+                            });
                       }
                     },
                     child: Text(

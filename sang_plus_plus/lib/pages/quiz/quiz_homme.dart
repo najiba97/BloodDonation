@@ -29,18 +29,18 @@ class _QuizHommeState extends State<QuizHomme> {
   List<String> txt = [
     'Avez-vous moins de 18 ans ou plus de 70 ans ?',
     'Pesez vous moins de 50kg ?',
-    'Avez-vous donner votre sang il y a moins de 8\n                                  semaines ?',
+    'Avez-vous donner votre sang il y a moins de 8 semaines ?',
     'Avez-vous été testée positif pour le VIH (sida) ?',
-    'Avez-vous déjà pris des drogues par voie \n                       intraveineuse ?',
-    'Avez-vous été traitée au cours de votre vie pour \n                              un cancer ?',
+    'Avez-vous déjà pris des drogues par voie intraveineuse ?',
+    'Avez-vous été traitée au cours de votre vie pour un cancer ?',
     'Etes-vous traitée pour une maladie chronique ?',
-    'Etes-vous suivie par votre medcin pour une \n           anémie ou un manque de fer ?',
-    'Avez-vous ressenti dans les semaines précédentes \n      une douleur thoracique ou un essoufflement\n               inormale à la suite d\'un effort ?',
-    'Avez-vous eu de la fièvre ou une infection\n         dans les 2 dernieres semaines ?',
-    'Avez-vous subi une fibroscopie gastrique pulmonaire\n       ou une closcopie dans les 4 derniers mois ?',
-    'Avez-vous eu un piercing ou un tatouage dans les\n                                4 derniers mois',
-    'Avez-vous eu des soins dentaires depuis moins de\n                                     24 heures',
-    'Avez-vous déjà eu une transfusion de sang ou une\n                            greffe d\'organe',
+    'Etes-vous suivie par votre medcin pour une anémie ou un manque de fer ?',
+    'Avez-vous ressenti dans les semaines précédentes une douleur thoracique ou un essoufflement inormale à la suite d\'un effort ?',
+    'Avez-vous eu de la fièvre ou une infection dans les 2 dernieres semaines ?',
+    'Avez-vous subi une fibroscopie gastrique pulmonaire ou une closcopie dans les 4 derniers mois ?',
+    'Avez-vous eu un piercing ou un tatouage dans les 4 derniers mois',
+    'Avez-vous eu des soins dentaires depuis moins de 24 heures',
+    'Avez-vous déjà eu une transfusion de sang ou une greffe d\'organe',
     'Avez-vous voyagé dans les 4 derniers mois ?',
     'Avez-vous été opérée dans les 4 derniers mois ?',
     'Prenez-vous des médicaments ?'
@@ -62,6 +62,8 @@ class _QuizHommeState extends State<QuizHomme> {
                         setState(() {
                           x--;
                         });
+                      } else {
+                        Navigator.pop(context);
                       }
                     },
                     icon: Icon(Icons.keyboard_return)),
@@ -80,9 +82,11 @@ class _QuizHommeState extends State<QuizHomme> {
             Center(
               child: Padding(
                 padding: const EdgeInsets.fromLTRB(15, 0, 0, 0),
-                child: Text(
-                  '${txt[x]}',
-                  style: TextStyle(fontSize: 16.0),
+                child: Center(
+                  child: Text(
+                    '${txt[x]}',
+                    style: TextStyle(fontSize: 16.0),
+                  ),
                 ),
               ),
             ),
@@ -91,7 +95,17 @@ class _QuizHommeState extends State<QuizHomme> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 TextButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      return showDialog(
+                          context: context,
+                          builder: (BuildContext context) {
+                            return AlertDialog(
+                              title: Text('Attention'),
+                              content: Text(
+                                  'Malheureusement, vous n\'êtes pas prêt à donner du sang'),
+                            );
+                          });
+                    },
                     child: Text(
                       'oui',
                       style: TextStyle(color: Colors.white),
@@ -111,6 +125,24 @@ class _QuizHommeState extends State<QuizHomme> {
                         setState(() {
                           x++;
                         });
+                      } else {
+                        return showDialog(
+                            context: context,
+                            builder: (BuildContext context) {
+                              return AlertDialog(
+                                title: Text('Félicitation'),
+                                content:
+                                    Text('vous êtes prêt à donner du sang'),
+                                actions: [
+                                  TextButton.icon(
+                                      onPressed: () {
+                                        Navigator.pushNamed(context, '/menu');
+                                      },
+                                      icon: Icon(Icons.home),
+                                      label: Text(''))
+                                ],
+                              );
+                            });
                       }
                     },
                     child: Text(

@@ -5,6 +5,9 @@ class UserData {
   //instancier la collection qui va etre dans le firestore
   final CollectionReference users =
       FirebaseFirestore.instance.collection('users');
+  //instancier collection de formulaire dans le firestore
+  final CollectionReference forms =
+      FirebaseFirestore.instance.collection('forms');
 
   UserData({this.uid});
   // upadateUser va prendre les information donner par user et les mettre en documents firestore
@@ -29,5 +32,26 @@ class UserData {
   //stream qui nous donne une snapshot sur le document users en firestore
   Stream<QuerySnapshot> userInfo() {
     return users.snapshots();
+  }
+
+  // update nom and prenom
+
+  Future updateInfo(String prop, String value) async {
+    return await users.doc(uid).update({prop: value});
+  }
+
+  // Prendre rendez vous
+
+  Future prendreRendezVous(
+      String nom, prenom, email, telephone, date, sexe, gs) async {
+    return await forms.doc(uid).set({
+      'nom': nom,
+      'prenom': prenom,
+      'email': email,
+      'telephone': telephone,
+      'date': date,
+      'groupe sanguin': gs,
+      'sexe': sexe
+    });
   }
 }

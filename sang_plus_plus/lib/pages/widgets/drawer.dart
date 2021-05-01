@@ -3,11 +3,10 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 class MyDrawer extends StatelessWidget {
-  const MyDrawer({Key key}) : super(key: key);
-
   @override
   Widget build(BuildContext context) {
     final user = Provider.of<User>(context);
+
     return Drawer(
       child: ListView(
         children: [
@@ -46,6 +45,7 @@ class MyDrawer extends StatelessWidget {
                 ),
                 onTap: () {
                   Navigator.pushNamed(context, '/propos');
+                  print('hi $user');
                 },
               ),
               ListTile(
@@ -64,25 +64,27 @@ class MyDrawer extends StatelessWidget {
                         fontFamily: 'PlayfairDisplay-Regular.ttf')),
                 onTap: () {
                   if (user == null) {
-                    AlertDialog(
-                      title: Text('AlertDialog Title'),
-                      content: SingleChildScrollView(
-                        child: ListBody(
-                          children: <Widget>[
-                            Text('This is a demo alert dialog.'),
-                            Text('Would you like to approve of this message?'),
-                          ],
-                        ),
-                      ),
-                      actions: <Widget>[
-                        TextButton(
-                          child: Text('Approve'),
-                          onPressed: () {
-                            Navigator.of(context).pop();
-                          },
-                        ),
-                      ],
-                    );
+                    return showDialog(
+                        context: context,
+                        builder: (BuildContext context) {
+                          return AlertDialog(
+                            title: Text('Prendre rendez-vous ?'),
+                            content: Text(
+                                'pour prendre un rendez-vous il fauts etre connecte , avez-vous un compte?'),
+                            actions: [
+                              TextButton(
+                                  onPressed: () {
+                                    Navigator.pushNamed(context, '/authentif');
+                                  },
+                                  child: Text('oui')),
+                              TextButton(
+                                  onPressed: () {
+                                    Navigator.pushNamed(context, '/creeCompte');
+                                  },
+                                  child: Text('non')),
+                            ],
+                          );
+                        });
                   } else {
                     Navigator.pushNamed(context, '/rendez');
                   }

@@ -43,11 +43,12 @@ class _AuthentifState extends State<Authentif> {
                         children: [
                           TextButton(
                             onPressed: () {
-                              Navigator.pushNamed(context, '/creeCompte');
+                              Navigator.pushNamed(context, '/menu');
                             },
                             child: Text(
-                              'S\'INSCRIRE',
-                              style: TextStyle(color: Colors.white),
+                              'Passer',
+                              style: TextStyle(
+                                  color: Colors.white, fontSize: 16.0),
                             ),
                           ),
                         ],
@@ -68,7 +69,7 @@ class _AuthentifState extends State<Authentif> {
                           TextFormField(
                             onChanged: (value) {
                               setState(() {
-                                this._email = value;
+                                this._email = value.trim();
                               });
                             },
                             decoration: InputDecoration(
@@ -155,21 +156,17 @@ class _AuthentifState extends State<Authentif> {
                                           side: BorderSide(
                                               color: Colors.white))))),
                           SizedBox(
-                            height: 50.0,
+                            height: 20.0,
                           ),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.end,
-                            children: [
-                              TextButton(
-                                onPressed: () {
-                                  Navigator.pushNamed(context, '/menu');
-                                },
-                                child: Text(
-                                  'PASSER',
-                                  style: TextStyle(color: Colors.white),
-                                ),
-                              ),
-                            ],
+                          TextButton(
+                            onPressed: () {
+                              Navigator.pushNamed(context, '/creeCompte');
+                            },
+                            child: Text(
+                              'S\'inscrire',
+                              style: TextStyle(
+                                  color: Colors.white, fontSize: 18.0),
+                            ),
                           ),
                         ],
                       ),

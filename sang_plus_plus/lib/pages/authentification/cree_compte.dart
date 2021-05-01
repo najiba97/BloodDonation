@@ -129,6 +129,7 @@ class _CreateCountState extends State<CreateCount> {
                               height: 10.0,
                             ),
                             TextFormField(
+                              keyboardType: TextInputType.phone,
                               validator: (value) => value.isEmpty
                                   ? 'numéro ne peut pas étre vide'
                                   : null,
@@ -288,7 +289,7 @@ class _CreateCountState extends State<CreateCount> {
                               child: Text(
                                 'J\'ai déjà un compte',
                                 style: TextStyle(
-                                    color: Colors.white, fontSize: 16),
+                                    color: Colors.white, fontSize: 18.0),
                               ),
                             ),
                           ],

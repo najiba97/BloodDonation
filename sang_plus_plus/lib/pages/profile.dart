@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 
 import 'package:image_picker/image_picker.dart';
@@ -103,11 +104,17 @@ class _ProfileState extends State<Profile> {
                           height: 30,
                         ),
                         TextField(
+                          onChanged: (value) {
+                            UserData(uid: _uid).updateInfo('nom', value);
+                          },
                           decoration: InputDecoration(
                             hintText: document['nom'],
                           ),
                         ),
                         TextFormField(
+                          onChanged: (value) {
+                            UserData(uid: _uid).updateInfo('prénom', value);
+                          },
                           decoration: InputDecoration(
                             hintText: document['prénom'],
                             hintStyle: TextStyle(
@@ -146,12 +153,22 @@ class _ProfileState extends State<Profile> {
               TextButton.icon(
                   onPressed: () {
                     takePhoto(ImageSource.camera);
+                    final File file = File(imageFile.path);
+
+                    Reference storage =
+                        FirebaseStorage.instance.ref().child('myImage.jpg');
+                    final UploadTask task = storage.putFile(file);
                   },
                   icon: Icon(Icons.camera),
                   label: Text('Camera')),
               TextButton.icon(
-                  onPressed: () {
+                  onPressed: () async {
                     takePhoto(ImageSource.gallery);
+                    final File file = File(imageFile.path);
+
+                    Reference storage =
+                        await FirebaseStorage.instance.ref().child('krich');
+                     UploadTask task = storage.putFile(file);
                   },
                   icon: Icon(Icons.image),
                   label: Text('Galerie'))
@@ -164,6 +181,7 @@ class _ProfileState extends State<Profile> {
 
   void takePhoto(ImageSource source) async {
     final pickedImage = await picker.getImage(source: source);
+
     setState(() {
       imageFile = pickedImage;
     });
