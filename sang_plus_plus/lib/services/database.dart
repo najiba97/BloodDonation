@@ -25,7 +25,7 @@ class UserData {
 
   /* va mettre a jours la propriete photo de profile si l'utilisateur decide de mettre
   a jours sa photo de profile*/
-  Future userPic(String img) async {
+  Future userPic(img) async {
     return await users.doc(uid).update({'photo de profile': img});
   }
 

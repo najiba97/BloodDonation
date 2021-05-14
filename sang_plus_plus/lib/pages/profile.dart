@@ -20,8 +20,8 @@ class _ProfileState extends State<Profile> {
   Bottom getBottom = Bottom();
   PickedFile imageFile;
   final int indexPage = 3;
+  String imgUrl;
 
-  final ImagePicker picker = ImagePicker();
   FirebaseAuth _auth = FirebaseAuth.instance;
 
   @override
@@ -76,11 +76,10 @@ class _ProfileState extends State<Profile> {
                           children: [
                             CircleAvatar(
                               radius: 75.0,
-                              backgroundImage:
-                                  document['photo de profile'] == null
-                                      ? AssetImage('assets/user.png')
-                                      : FileImage(
-                                          File(document['photo de profile'])),
+                              backgroundImage: document['photo de profile'] ==
+                                      null
+                                  ? AssetImage('assets/user.png')
+                                  : NetworkImage(document['photo de profile']),
                               backgroundColor: Colors.white,
                             ),
                             Positioned(
@@ -153,23 +152,11 @@ class _ProfileState extends State<Profile> {
               TextButton.icon(
                   onPressed: () {
                     takePhoto(ImageSource.camera);
-                    final File file = File(imageFile.path);
-
-                    Reference storage =
-                        FirebaseStorage.instance.ref().child('myImage.jpg');
-                    final UploadTask task = storage.putFile(file);
                   },
                   icon: Icon(Icons.camera),
                   label: Text('Camera')),
               TextButton.icon(
-                  onPressed: () async {
-                    takePhoto(ImageSource.gallery);
-                    final File file = File(imageFile.path);
-
-                    Reference storage =
-                        await FirebaseStorage.instance.ref().child('krich');
-                     UploadTask task = storage.putFile(file);
-                  },
+                  onPressed: () async => await takePhoto(ImageSource.gallery),
                   icon: Icon(Icons.image),
                   label: Text('Galerie'))
             ],
@@ -179,12 +166,26 @@ class _ProfileState extends State<Profile> {
     );
   }
 
-  void takePhoto(ImageSource source) async {
+  takePhoto(ImageSource source) async {
+    final picker = ImagePicker();
     final pickedImage = await picker.getImage(source: source);
 
-    setState(() {
-      imageFile = pickedImage;
-    });
-    await UserData(uid: _auth.currentUser.uid).userPic(imageFile.path);
+    var file = File(pickedImage.path);
+
+    if (pickedImage != null) {
+      var snapshot = await FirebaseStorage.instance
+          .ref()
+          .child(_auth.currentUser.uid)
+          .putFile(file);
+      var downloadUrl = await snapshot.ref.getDownloadURL();
+      setState(() {
+        imgUrl = downloadUrl;
+      });
+      print(imgUrl);
+    } else {
+      print('no path recived');
+    }
+
+    await UserData(uid: _auth.currentUser.uid).userPic(imgUrl);
   }
 }
