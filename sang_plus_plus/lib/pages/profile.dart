@@ -29,19 +29,21 @@ class _ProfileState extends State<Profile> {
     var _uid = _auth.currentUser.uid;
 
     return Scaffold(
+        backgroundColor: Colors.grey[100],
         appBar: AppBar(
+          centerTitle: true,
           elevation: 0,
           title: Text(
             'Profil',
           ),
-          backgroundColor: Colors.red[100],
+          backgroundColor: Colors.teal[400],
           actions: [
             Center(
               child: IconButton(
                 icon: Icon(
                   Icons.notifications_active,
                   size: 40,
-                  color: Colors.black,
+                  color: Colors.teal[50],
                 ),
                 onPressed: () {},
                 splashColor: Colors.green,
@@ -61,47 +63,57 @@ class _ProfileState extends State<Profile> {
               var document = snapshot.data;
 
               return ListView(children: [
-                Container(
-                  height: MediaQuery.of(context).size.height,
-                  decoration: BoxDecoration(
-                      gradient: LinearGradient(
-                          begin: Alignment.centerLeft,
-                          end: Alignment.centerRight,
-                          colors: [Colors.red[100], Colors.red[300]])),
-                  child: Padding(
-                      padding: const EdgeInsets.fromLTRB(100, 150, 100, 0),
-                      child: Column(children: [
-                        Center(
-                            child: Stack(
-                          children: [
-                            CircleAvatar(
-                              radius: 75.0,
-                              backgroundImage: document['photo de profile'] ==
-                                      null
-                                  ? AssetImage('assets/user.png')
-                                  : NetworkImage(document['photo de profile']),
-                              backgroundColor: Colors.white,
-                            ),
-                            Positioned(
-                                right: -2.0,
-                                bottom: 15.0,
-                                child: InkWell(
-                                  onTap: () {
-                                    showModalBottomSheet(
-                                        context: context,
-                                        builder: ((builder) => bottomSheet()));
-                                  },
-                                  child: Icon(
-                                    Icons.camera_alt,
-                                    color: Colors.teal,
-                                    size: 28.0,
-                                  ),
-                                ))
-                          ],
-                        )),
-                        SizedBox(
-                          height: 30,
+                Column(children: [
+                  Container(
+                    height: 80,
+                    color: Colors.teal[400],
+                  ),
+                  Stack(
+                    children: [
+                      Container(
+                        height: 100,
+                        width: double.infinity,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.vertical(
+                              bottom: Radius.circular(25)),
+                          color: Colors.teal[400],
                         ),
+                      ),
+                      Center(
+                        child: CircleAvatar(
+                          radius: 100.0,
+                          backgroundImage: document['photo de profile'] == null
+                              ? AssetImage('assets/user.png')
+                              : NetworkImage(document['photo de profile']),
+                          backgroundColor: Colors.white,
+                        ),
+                      ),
+                      Positioned(
+                          right: 125,
+                          bottom: 15.0,
+                          child: InkWell(
+                            onTap: () {
+                              showModalBottomSheet(
+                                  context: context,
+                                  builder: ((builder) => bottomSheet()));
+                            },
+                            child: Icon(
+                              Icons.camera_alt,
+                              color: Colors.teal,
+                              size: 28.0,
+                            ),
+                          ))
+                    ],
+                  ),
+                  SizedBox(
+                    height: 50,
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 50,
+                    ),
+                    child: Column(
+                      children: [
                         TextField(
                           onChanged: (value) {
                             UserData(uid: _uid).updateInfo('nom', value);
@@ -121,8 +133,10 @@ class _ProfileState extends State<Profile> {
                             ),
                           ),
                         ),
-                      ])),
-                ),
+                      ],
+                    ),
+                  )
+                ]),
               ]);
             }
           },

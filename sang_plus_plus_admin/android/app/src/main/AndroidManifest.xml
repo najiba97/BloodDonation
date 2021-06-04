@@ -1,5 +1,5 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.sang_plus_plus_admin">
+    package="com.plusplus.don_admin">
    <application
         android:label="sang_plus_plus_admin"
         android:icon="@mipmap/ic_launcher">

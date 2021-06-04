@@ -29,271 +29,284 @@ class _CreateCountState extends State<CreateCount> {
     return connection
         ? CircularLoad()
         : Scaffold(
+            appBar: AppBar(
+              centerTitle: true,
+              elevation: 0.5,
+              backgroundColor: Colors.grey[100],
+              toolbarHeight: 150,
+              title: Padding(
+                padding: const EdgeInsets.only(top: 100),
+                child: Text(
+                  'Cree Compte',
+                  style: TextStyle(
+                      color: Colors.teal[400],
+                      fontWeight: FontWeight.bold,
+                      fontSize: 25),
+                ),
+              ),
+            ),
             body: Container(
-                decoration: BoxDecoration(
-                    image: DecorationImage(
-                        image: AssetImage('assets/sang.jfif'),
-                        fit: BoxFit.cover)),
+                color: Colors.grey[100],
+                padding: EdgeInsets.symmetric(horizontal: 42, vertical: 30),
                 child: ListView(
                   children: [
-                    Padding(
-                      padding: EdgeInsets.fromLTRB(30, 50, 30, 0),
-                      child: Form(
-                        key: _formKey,
-                        child: Column(
-                          children: [
-                            Image.asset(
-                              'assets/heartbeat.png',
-                              height: 120.0,
-                              width: 120.0,
-                            ),
-                            SizedBox(
-                              height: 10.0,
-                            ),
-                            TextFormField(
-                              onChanged: (value) {
-                                setState(() {
-                                  _nom = value;
-                                });
-                              },
-                              validator: (value) => value.isEmpty
-                                  ? 'nom ne peut pas étre vide'
-                                  : null,
-                              decoration: InputDecoration(
-                                  enabledBorder: UnderlineInputBorder(
-                                      borderSide:
-                                          BorderSide(color: Colors.white)),
-                                  hintText: 'NOM',
-                                  hintStyle: TextStyle(
-                                    color: Colors.white,
-                                    fontSize: 16.0,
-                                  ),
-                                  icon: Icon(
-                                    Icons.account_circle,
-                                    color: Colors.white,
+                    Form(
+                      key: _formKey,
+                      child: Column(
+                        children: [
+                          Text(
+                            'c\'est la page d\'inscription pour les administrateur ',
+                            style: TextStyle(color: Colors.grey[600]),
+                          ),
+                          SizedBox(
+                            height: 30.0,
+                          ),
+                          Row(
+                            children: [
+                              TextButton(
+                                  onPressed: () => Navigator.pushNamed(
+                                      context, '/authentif'),
+                                  child: Text(
+                                    'S\'authentifier',
+                                    style: TextStyle(color: Colors.grey),
                                   )),
-                            ),
-                            SizedBox(
-                              height: 10.0,
-                            ),
-                            TextFormField(
-                              validator: (value) => value.isEmpty
-                                  ? 'prénom ne peut pas étre vide'
-                                  : null,
-                              onChanged: (value) {
-                                setState(() {
-                                  _prenom = value;
-                                });
-                              },
-                              decoration: InputDecoration(
-                                  enabledBorder: UnderlineInputBorder(
-                                      borderSide:
-                                          BorderSide(color: Colors.white)),
-                                  hintText: 'PRENOM',
-                                  hintStyle: TextStyle(
-                                    color: Colors.white,
-                                    fontSize: 16.0,
-                                  ),
-                                  icon: Icon(
-                                    Icons.account_circle,
-                                    color: Colors.white,
-                                  )),
-                            ),
-                            SizedBox(
-                              height: 10.0,
-                            ),
-                            TextFormField(
-                              validator: (value) => value.isEmpty
-                                  ? 'email ne peut pas étre vide'
-                                  : null,
-                              onChanged: (value) {
-                                setState(() {
-                                  _email = value;
-                                });
-                              },
-                              decoration: InputDecoration(
-                                  enabledBorder: UnderlineInputBorder(
-                                      borderSide:
-                                          BorderSide(color: Colors.white)),
-                                  hintText: 'EMAIL',
-                                  hintStyle: TextStyle(
-                                    color: Colors.white,
-                                    fontSize: 16.0,
-                                  ),
-                                  icon: Icon(
-                                    Icons.email,
-                                    color: Colors.white,
-                                  )),
-                            ),
-                            SizedBox(
-                              height: 10.0,
-                            ),
-                            TextFormField(
-                              keyboardType: TextInputType.phone,
-                              validator: (value) => value.isEmpty
-                                  ? 'numéro ne peut pas étre vide'
-                                  : null,
-                              onChanged: (value) {
-                                setState(() {
-                                  _tel = value;
-                                });
-                              },
-                              decoration: InputDecoration(
-                                  enabledBorder: UnderlineInputBorder(
-                                      borderSide:
-                                          BorderSide(color: Colors.white)),
-                                  hintText: 'NUMERO DE TELEPHONE',
-                                  hintStyle: TextStyle(
-                                    color: Colors.white,
-                                    fontSize: 16.0,
-                                  ),
-                                  icon: Icon(
-                                    Icons.phone,
-                                    color: Colors.white,
-                                  )),
-                            ),
-                            SizedBox(
-                              height: 10.0,
-                            ),
-                            TextFormField(
-                              validator: (value) => value.isEmpty
-                                  ? 'mot de passe ne peut pas étre vide'
-                                  : null,
-                              onChanged: (value) {
-                                setState(() {
-                                  _password = value;
-                                });
-                              },
-                              obscureText: tt,
-                              decoration: InputDecoration(
-                                  suffixIcon: IconButton(
-                                      onPressed: () {
-                                        setState(() {
-                                          y = tt;
-                                          tt = tf;
-                                          tf = y;
-                                        });
-                                      },
-                                      icon: hideEye[x]),
-                                  enabledBorder: UnderlineInputBorder(
-                                      borderSide:
-                                          BorderSide(color: Colors.white)),
-                                  hintText: 'MOT DE PASSE',
-                                  hintStyle: TextStyle(
-                                    color: Colors.white,
-                                    fontSize: 16.0,
-                                  ),
-                                  icon: Icon(
-                                    Icons.lock,
-                                    color: Colors.white,
-                                  )),
-                            ),
-                            SizedBox(
-                              height: 10.0,
-                            ),
-                            TextFormField(
-                              validator: (String value) {
-                                String errors;
-                                if (value.isEmpty) {
-                                  errors =
-                                      'mots de passe ne peut pas etre vide';
-                                } else if (_password != _confirmPassword) {
-                                  errors = 'mot de passe non identique';
-                                }
-                                return errors;
-                              },
-                              onChanged: (value) {
-                                setState(() {
-                                  _confirmPassword = value;
-                                });
-                              },
-                              obscureText: ttc,
-                              decoration: InputDecoration(
-                                  suffixIcon: IconButton(
+                              TextButton(
+                                  onPressed: () => Navigator.pushNamed(
+                                      context, '/creeCompte'),
+                                  child: Text(
+                                    'Crée compte',
+                                    style: TextStyle(
+                                        fontSize: 16,
+                                        color: Colors.teal[400],
+                                        fontWeight: FontWeight.w600),
+                                  ))
+                            ],
+                          ),
+                          Divider(
+                            thickness: 4,
+                          ),
+                          SizedBox(
+                            height: 20,
+                          ),
+                          TextFormField(
+                            onChanged: (value) {
+                              _nom = value;
+                            },
+                            validator: (value) => value.isEmpty
+                                ? 'nom ne peut pas étre vide'
+                                : null,
+                            decoration: InputDecoration(
+                                focusedBorder: UnderlineInputBorder(
+                                  borderSide: BorderSide(color: Colors.teal),
+                                ),
+                                enabledBorder: UnderlineInputBorder(
+                                  borderSide:
+                                      BorderSide(color: Colors.grey[400]),
+                                ),
+                                hintText: 'Nom',
+                                hintStyle: TextStyle(),
+                                icon: Icon(
+                                  Icons.account_circle,
+                                  color: Colors.teal[400],
+                                )),
+                          ),
+                          SizedBox(
+                            height: 10.0,
+                          ),
+                          TextFormField(
+                            validator: (value) => value.isEmpty
+                                ? 'prénom ne peut pas étre vide'
+                                : null,
+                            onChanged: (value) {
+                              _prenom = value;
+                            },
+                            decoration: InputDecoration(
+                                focusedBorder: UnderlineInputBorder(
+                                  borderSide: BorderSide(color: Colors.teal),
+                                ),
+                                enabledBorder: UnderlineInputBorder(
+                                  borderSide:
+                                      BorderSide(color: Colors.grey[400]),
+                                ),
+                                hintText: 'Prénom',
+                                icon: Icon(
+                                  Icons.account_circle,
+                                  color: Colors.teal[400],
+                                )),
+                          ),
+                          SizedBox(
+                            height: 10.0,
+                          ),
+                          TextFormField(
+                            validator: (value) => value.isEmpty
+                                ? 'email ne peut pas étre vide'
+                                : null,
+                            onChanged: (value) {
+                              _email = value;
+                            },
+                            decoration: InputDecoration(
+                                focusedBorder: UnderlineInputBorder(
+                                  borderSide: BorderSide(color: Colors.teal),
+                                ),
+                                enabledBorder: UnderlineInputBorder(
+                                  borderSide:
+                                      BorderSide(color: Colors.grey[400]),
+                                ),
+                                hintText: 'Email',
+                                icon: Icon(
+                                  Icons.email,
+                                  color: Colors.teal[400],
+                                )),
+                          ),
+                          SizedBox(
+                            height: 10.0,
+                          ),
+                          TextFormField(
+                            keyboardType: TextInputType.phone,
+                            validator: (value) => value.isEmpty
+                                ? 'numéro ne peut pas étre vide'
+                                : null,
+                            onChanged: (value) {
+                              _tel = value;
+                            },
+                            decoration: InputDecoration(
+                                focusedBorder: UnderlineInputBorder(
+                                  borderSide: BorderSide(color: Colors.teal),
+                                ),
+                                enabledBorder: UnderlineInputBorder(
+                                  borderSide:
+                                      BorderSide(color: Colors.grey[400]),
+                                ),
+                                hintText: 'Numéro de téléphone',
+                                icon: Icon(
+                                  Icons.phone,
+                                  color: Colors.teal[400],
+                                )),
+                          ),
+                          SizedBox(
+                            height: 10.0,
+                          ),
+                          TextFormField(
+                            validator: (value) => value.isEmpty
+                                ? 'mot de passe ne peut pas étre vide'
+                                : null,
+                            onChanged: (value) {
+                              _password = value;
+                            },
+                            obscureText: tt,
+                            decoration: InputDecoration(
+                                suffixIcon: IconButton(
                                     onPressed: () {
                                       setState(() {
-                                        y = ttc;
-                                        ttc = tfc;
-                                        tfc = y;
+                                        y = tt;
+                                        tt = tf;
+                                        tf = y;
                                       });
                                     },
-                                    icon: hideEye[z],
-                                  ),
-                                  enabledBorder: UnderlineInputBorder(
-                                      borderSide:
-                                          BorderSide(color: Colors.white)),
-                                  hintText: 'CONFIRMER MOT DE PASSE',
-                                  hintStyle: TextStyle(
-                                    color: Colors.white,
-                                    fontSize: 16.0,
-                                  ),
-                                  icon: Icon(
-                                    Icons.lock_open_sharp,
-                                    color: Colors.white,
-                                  )),
-                            ),
-                            SizedBox(
-                              height: 25.0,
-                            ),
-                            TextButton(
-                                onPressed: () async {
-                                  if (_formKey.currentState.validate() ==
-                                      true) {
-                                    setState(() {
-                                      connection = true;
-                                    });
-                                    dynamic result = await _auth.createAccount(
-                                        _nom, _prenom, _tel, _email, _password);
-                                    if (result == null) {
-                                      connection = false;
-                                      setState(() {
-                                        error = 'connection non aboutie';
-                                      });
-                                      print(error);
-                                    }
-                                  }
-                                },
-                                child: Padding(
-                                  padding:
-                                      const EdgeInsets.fromLTRB(10, 2, 10, 2),
-                                  child: Text(
-                                    'S\'INSCRIRE',
-                                    style: TextStyle(
-                                      color: Colors.red[800],
-                                      fontSize: 16,
-                                    ),
-                                  ),
+                                    icon: hideEye[x]),
+                                focusedBorder: UnderlineInputBorder(
+                                  borderSide: BorderSide(color: Colors.teal),
                                 ),
-                                style: ButtonStyle(
-                                    backgroundColor:
-                                        MaterialStateProperty.all<Color>(
-                                            Colors.white),
-                                    shape: MaterialStateProperty.all<
-                                            RoundedRectangleBorder>(
-                                        RoundedRectangleBorder(
-                                            borderRadius:
-                                                BorderRadius.circular(25.0),
-                                            side: BorderSide(
-                                                color: Colors.white))))),
-                            SizedBox(
-                              height: 10.0,
-                            ),
-                            Text(
-                              error,
-                              style: TextStyle(color: Colors.red),
-                            ),
-                            TextButton(
-                              onPressed: () {
-                                Navigator.pop(context, '/authentif');
+                                enabledBorder: UnderlineInputBorder(
+                                  borderSide:
+                                      BorderSide(color: Colors.grey[400]),
+                                ),
+                                hintText: 'Mot de passe',
+                                icon: Icon(
+                                  Icons.lock,
+                                  color: Colors.teal[400],
+                                )),
+                          ),
+                          SizedBox(
+                            height: 10.0,
+                          ),
+                          TextFormField(
+                            validator: (String value) {
+                              String errors;
+                              if (value.isEmpty) {
+                                errors = 'mots de passe ne peut pas etre vide';
+                              } else if (_password != _confirmPassword) {
+                                errors = 'mot de passe non identique';
+                              }
+                              return errors;
+                            },
+                            onChanged: (value) => _confirmPassword = value,
+                            obscureText: ttc,
+                            decoration: InputDecoration(
+                                suffixIcon: IconButton(
+                                  onPressed: () {
+                                    setState(() {
+                                      y = ttc;
+                                      ttc = tfc;
+                                      tfc = y;
+                                    });
+                                  },
+                                  icon: hideEye[z],
+                                ),
+                                focusedBorder: UnderlineInputBorder(
+                                  borderSide: BorderSide(color: Colors.teal),
+                                ),
+                                enabledBorder: UnderlineInputBorder(
+                                  borderSide:
+                                      BorderSide(color: Colors.grey[400]),
+                                ),
+                                hintText: 'Confirmer mot de passe',
+                                icon: Icon(
+                                  Icons.lock_open_sharp,
+                                  color: Colors.teal[400],
+                                )),
+                          ),
+                          SizedBox(
+                            height: 60,
+                          ),
+                          SizedBox(
+                            width: MediaQuery.of(context).size.width,
+                            height: 45,
+                            child: TextButton(
+                              onPressed: () async {
+                                if (_formKey.currentState.validate() == true) {
+                                  setState(() {
+                                    connection = true;
+                                  });
+                                  dynamic result = await _auth.createAccount(
+                                      _nom, _prenom, _tel, _email, _password);
+                                  if (result == null) {
+                                    connection = false;
+                                    setState(() {
+                                      error = 'connection non aboutie';
+                                    });
+                                  }
+                                }
                               },
                               child: Text(
-                                'J\'ai déjà un compte',
+                                'S\'INSCRIRE',
                                 style: TextStyle(
-                                    color: Colors.white, fontSize: 18.0),
+                                    color: Colors.white,
+                                    fontWeight: FontWeight.bold),
                               ),
+                              style: ButtonStyle(
+                                  backgroundColor: MaterialStateProperty.all(
+                                      Colors.teal[400])),
                             ),
-                          ],
-                        ),
+                          ),
+                          SizedBox(
+                            height: 7.0,
+                          ),
+                          Text(
+                            error,
+                            style: TextStyle(color: Colors.red),
+                          ),
+                          TextButton(
+                            onPressed: () {
+                              Navigator.pop(context, '/authentif');
+                            },
+                            child: Text(
+                              'J\'ai déjà un compte',
+                              style: TextStyle(
+                                  color: Colors.teal[400], fontSize: 16.0),
+                            ),
+                          ),
+                        ],
                       ),
                     ),
                   ],

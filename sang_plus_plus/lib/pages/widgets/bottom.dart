@@ -14,7 +14,7 @@ class MyBottom extends StatelessWidget {
     Bottom getBottom = Bottom();
     final user = Provider.of<User>(context);
     return BottomNavigationBar(
-        backgroundColor: Colors.white,
+        backgroundColor: Colors.grey[100],
         showSelectedLabels: false,
         showUnselectedLabels: true,
         items: user != null ? connectedNavBar : unconnectedNavBar,

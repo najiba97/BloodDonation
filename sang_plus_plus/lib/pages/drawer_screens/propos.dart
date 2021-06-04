@@ -12,24 +12,22 @@ class _ProposState extends State<Propos> {
     return Scaffold(
         appBar: AppBar(
           title: Text('a propos'),
-          backgroundColor: Colors.redAccent,
+          backgroundColor: Colors.teal[400],
           actions: [
             IconButton(
               onPressed: () {
                 Navigator.pushNamed(context, '/menu');
               },
-              icon: Icon(Icons.home),
+              icon: Icon(
+                Icons.home,
+                color: Colors.white,
+              ),
               splashColor: Colors.green,
             )
           ],
         ),
         body: Container(
-          decoration: BoxDecoration(
-            gradient: LinearGradient(
-                begin: Alignment.centerLeft,
-                end: Alignment.centerRight,
-                colors: [Colors.red[100], Colors.red[300]]),
-          ),
+          color: Colors.grey[200],
         ));
   }
 }

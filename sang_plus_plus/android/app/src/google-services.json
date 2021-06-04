@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "872889575116",
+    "project_id": "sangplusplusv2",
+    "storage_bucket": "sangplusplusv2.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:872889575116:android:95e8d87d889b1799e1c469",
+        "android_client_info": {
+          "package_name": "com.plusplus.don"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "872889575116-i03kfi5okvutpqg87ac8e97fl4f44tl3.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBRQIsgub410ItSQbl0oUbTN7Mhd6DOqc4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "872889575116-i03kfi5okvutpqg87ac8e97fl4f44tl3.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

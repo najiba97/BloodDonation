@@ -11,8 +11,9 @@ class _ContacteState extends State<Contacte> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
+          centerTitle: true,
           title: Text('contacter-nous'),
-          backgroundColor: Colors.redAccent,
+          backgroundColor: Colors.teal[400],
           actions: [
             IconButton(
               onPressed: () {
@@ -24,12 +25,7 @@ class _ContacteState extends State<Contacte> {
           ],
         ),
         body: Container(
-          decoration: BoxDecoration(
-            gradient: LinearGradient(
-                begin: Alignment.centerLeft,
-                end: Alignment.centerRight,
-                colors: [Colors.red[100], Colors.red[300]]),
-          ),
+          color: Colors.grey[200],
           child: ListView(
             children: [
               SizedBox(

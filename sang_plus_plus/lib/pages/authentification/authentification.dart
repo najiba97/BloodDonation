@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
 
 import 'package:sang_plus_plus/pages/widgets/cirular_load.dart';
@@ -29,147 +31,173 @@ class _AuthentifState extends State<Authentif> {
     return connection
         ? CircularLoad()
         : Scaffold(
+            appBar: AppBar(
+              actions: [
+                TextButton(
+                    onPressed: () => Navigator.pushNamed(context, '/menu'),
+                    child: Text(
+                      'Passer',
+                      style: TextStyle(color: Colors.teal[400]),
+                    ))
+              ],
+              centerTitle: true,
+              elevation: 0.5,
+              backgroundColor: Colors.grey[100],
+              toolbarHeight: 150,
+              title: Padding(
+                padding: const EdgeInsets.only(top: 100),
+                child: Text(
+                  'Authentification',
+                  style: TextStyle(
+                      color: Colors.teal[400],
+                      fontWeight: FontWeight.bold,
+                      fontSize: 25),
+                ),
+              ),
+            ),
             body: Container(
-                decoration: BoxDecoration(
-                    image: DecorationImage(
-                        image: AssetImage('assets/sang.jfif'),
-                        fit: BoxFit.cover)),
+                color: Colors.grey[100],
+                padding: EdgeInsets.symmetric(horizontal: 42, vertical: 30),
                 child: ListView(
                   children: [
-                    Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.end,
-                        children: [
-                          TextButton(
-                            onPressed: () {
-                              Navigator.pushNamed(context, '/menu');
-                            },
-                            child: Text(
-                              'Passer',
-                              style: TextStyle(
-                                  color: Colors.white, fontSize: 16.0),
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                    Padding(
-                      padding: EdgeInsets.fromLTRB(30, 80, 30, 0),
-                      child: Column(
-                        children: [
-                          Image.asset(
-                            'assets/heartbeat.png',
-                            height: 120.0,
-                            width: 120.0,
-                          ),
-                          SizedBox(
-                            height: 60.0,
-                          ),
-                          TextFormField(
-                            onChanged: (value) {
-                              setState(() {
-                                this._email = value.trim();
-                              });
-                            },
-                            decoration: InputDecoration(
-                                enabledBorder: UnderlineInputBorder(
-                                    borderSide:
-                                        BorderSide(color: Colors.white)),
-                                hintText: 'TELEPHONE OU EMAIL',
-                                hintStyle: TextStyle(
-                                  color: Colors.white,
-                                  fontSize: 16.0,
-                                ),
-                                icon: Icon(
-                                  Icons.email,
-                                  color: Colors.white,
-                                )),
-                          ),
-                          SizedBox(
-                            height: 20.0,
-                          ),
-                          TextFormField(
-                            onChanged: (value) {
-                              setState(() {
-                                this._password = value;
-                              });
-                            },
-                            obscureText: tt,
-                            decoration: InputDecoration(
-                              suffixIcon: IconButton(
-                                  onPressed: () {
-                                    setState(() {
-                                      y = tt;
-                                      tt = tf;
-                                      tf = y;
-                                    });
-                                  },
-                                  icon: eyeHide[x]),
-                              enabledBorder: UnderlineInputBorder(
-                                  borderSide: BorderSide(color: Colors.white)),
-                              hintText: 'MOT DE PASSE',
-                              hintStyle: TextStyle(
-                                color: Colors.white,
-                                fontSize: 16.0,
-                              ),
-                              icon: Icon(
-                                Icons.lock,
-                                color: Colors.white,
-                              ),
-                            ),
-                          ),
-                          SizedBox(
-                            height: 90.0,
-                          ),
-                          TextButton(
-                              onPressed: () async {
-                                setState(() => connection = true);
-                                dynamic result =
-                                    await _auth.signIn(_email, _password);
-                                if (result == null) {
-                                  setState(() {
-                                    connection = false;
-                                  });
-                                }
-                              },
-                              child: Padding(
-                                padding:
-                                    const EdgeInsets.fromLTRB(10, 2, 10, 2),
+                    Column(
+                      children: [
+                        Text(
+                          'c\'est la page d\'inscription pour les administrateur ',
+                          style: TextStyle(
+                              color: Colors.grey[600], letterSpacing: 0.2),
+                        ),
+                        SizedBox(
+                          height: 50,
+                        ),
+                        Row(
+                          children: [
+                            TextButton(
+                                onPressed: () =>
+                                    Navigator.pushNamed(context, '/authentif'),
                                 child: Text(
-                                  'CONNEXION',
+                                  'S\'authentifier',
                                   style: TextStyle(
-                                    color: Colors.red[800],
-                                    fontSize: 16,
-                                  ),
-                                ),
-                              ),
-                              style: ButtonStyle(
-                                  backgroundColor:
-                                      MaterialStateProperty.all<Color>(
-                                          Colors.white),
-                                  shape: MaterialStateProperty.all<
-                                          RoundedRectangleBorder>(
-                                      RoundedRectangleBorder(
-                                          borderRadius:
-                                              BorderRadius.circular(25.0),
-                                          side: BorderSide(
-                                              color: Colors.white))))),
-                          SizedBox(
-                            height: 20.0,
-                          ),
-                          TextButton(
-                            onPressed: () {
-                              Navigator.pushNamed(context, '/creeCompte');
-                            },
-                            child: Text(
-                              'S\'inscrire',
-                              style: TextStyle(
-                                  color: Colors.white, fontSize: 18.0),
+                                      fontSize: 16,
+                                      color: Colors.teal[400],
+                                      fontWeight: FontWeight.w600),
+                                )),
+                            TextButton(
+                                onPressed: () =>
+                                    Navigator.pushNamed(context, '/creeCompte'),
+                                child: Text(
+                                  'Créer Compte',
+                                  style: TextStyle(color: Colors.grey),
+                                ))
+                          ],
+                        ),
+                        Divider(
+                          thickness: 4,
+                        ),
+                        SizedBox(
+                          height: 20.0,
+                        ),
+                        TextFormField(
+                          onChanged: (value) {
+                            _email = value.trim();
+                          },
+                          decoration: InputDecoration(
+                              focusedBorder: UnderlineInputBorder(
+                                  borderSide: BorderSide(color: Colors.teal)),
+                              enabledBorder: UnderlineInputBorder(
+                                  borderSide:
+                                      BorderSide(color: Colors.grey[400])),
+                              hintText: 'Email',
+                              icon: Icon(
+                                Icons.email,
+                                color: Colors.teal[400],
+                              )),
+                        ),
+                        SizedBox(
+                          height: 20.0,
+                        ),
+                        TextFormField(
+                          onChanged: (value) {
+                            _password = value;
+                          },
+                          obscureText: tt,
+                          decoration: InputDecoration(
+                            suffixIcon: IconButton(
+                                onPressed: () {
+                                  setState(() {
+                                    y = tt;
+                                    tt = tf;
+                                    tf = y;
+                                  });
+                                },
+                                icon: eyeHide[x]),
+                            enabledBorder: UnderlineInputBorder(
+                                borderSide:
+                                    BorderSide(color: Colors.grey[400])),
+                            focusedBorder: UnderlineInputBorder(
+                                borderSide: BorderSide(color: Colors.teal)),
+                            hintText: 'Mot de passe',
+                            icon: Icon(
+                              Icons.lock,
+                              color: Colors.teal[400],
                             ),
                           ),
-                        ],
-                      ),
+                        ),
+                        SizedBox(
+                          height: 20,
+                        ),
+                        TextButton(
+                          onPressed: () =>
+                              Navigator.pushNamed(context, '/resetpass'),
+                          child: Text(
+                            'mot de passe oublier ?',
+                            style: TextStyle(
+                                color: Colors.teal[600], letterSpacing: 1),
+                          ),
+                        ),
+                        SizedBox(
+                          height: MediaQuery.of(context).size.height / 5,
+                        ),
+                        SizedBox(
+                          width: MediaQuery.of(context).size.width,
+                          height: 45,
+                          child: TextButton(
+                            onPressed: () async {
+                              setState(() => connection = true);
+                              dynamic result =
+                                  await _auth.signIn(_email, _password);
+                              if (result == null) {
+                                setState(() {
+                                  connection = false;
+                                });
+                              }
+                            },
+                            child: Text(
+                              'CONNEXION',
+                              style: TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.white),
+                            ),
+                            style: ButtonStyle(
+                              backgroundColor:
+                                  MaterialStateProperty.all(Colors.teal[400]),
+                            ),
+                          ),
+                        ),
+                        SizedBox(
+                          height: 20.0,
+                        ),
+                        TextButton(
+                          onPressed: () {
+                            Navigator.pushNamed(context, '/creeCompte');
+                          },
+                          child: Text(
+                            'S\'inscrire',
+                            style: TextStyle(
+                                color: Colors.teal[400], fontSize: 16.0),
+                          ),
+                        ),
+                      ],
                     ),
                   ],
                 )),

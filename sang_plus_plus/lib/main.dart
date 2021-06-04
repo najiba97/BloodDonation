@@ -15,6 +15,7 @@ import 'package:sang_plus_plus/pages/quiz/quiz.dart';
 import 'package:sang_plus_plus/pages/quiz/quiz_femme.dart';
 import 'package:sang_plus_plus/pages/quiz/quiz_homme.dart';
 import 'package:sang_plus_plus/pages/drawer_screens/rendez_vous.dart';
+import 'package:sang_plus_plus/pages/reset_pass.dart';
 
 import 'services/auth_service.dart';
 
@@ -36,6 +37,7 @@ class MyApp extends StatelessWidget {
       value: AuthServices().authStateChanges,
       // Material App c'est la class main qui contiens tous leas autre class
       child: MaterialApp(
+          debugShowCheckedModeBanner: false,
           //theme va vous initialiser l'apparence d'application
           theme: ThemeData(fontFamily: 'Roboto'),
           initialRoute: '/',
@@ -52,7 +54,8 @@ class MyApp extends StatelessWidget {
             '/consigne': (context) => Consigne(),
             '/propos': (context) => Propos(),
             '/contacte': (context) => Contacte(),
-            '/rendez': (context) => Rendez()
+            '/rendez': (context) => Rendez(),
+            '/resetpass': (context) => ResetPassword(),
           }),
     );
   }

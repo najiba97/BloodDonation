@@ -1,4 +1,4 @@
-package com.donate.sang_plus_plus
+package com.plusplus.don
 
 import io.flutter.embedding.android.FlutterActivity
 

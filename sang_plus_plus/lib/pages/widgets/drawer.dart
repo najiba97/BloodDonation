@@ -8,48 +8,38 @@ class MyDrawer extends StatelessWidget {
     final user = Provider.of<User>(context);
 
     return Drawer(
+      
       child: ListView(
         children: [
           DrawerHeader(
-            decoration: BoxDecoration(color: Colors.pink[100]),
+            decoration: BoxDecoration(color: Colors.teal[200]),
             child: Column(
-              children: [
-                Center(
-                  child: Image.asset(
-                    'assets/heartbeat.png',
-                    width: 250,
-                    height: 67,
-                  ),
-                ),
-                SizedBox(
-                  height: 10,
-                ),
-                Center(
-                  child: Text(
-                    'sang++',
-                    style: TextStyle(fontSize: 18, color: Colors.black),
-                  ),
-                ),
-              ],
+              children: [],
             ),
           ),
           Column(
+            
             crossAxisAlignment: CrossAxisAlignment.start,
             mainAxisAlignment: MainAxisAlignment.end,
             children: [
               ListTile(
-                leading: Icon(Icons.announcement_outlined),
+                leading: Icon(
+                  Icons.announcement_outlined,
+                  color: Colors.teal,
+                ),
                 title: Text(
                   'A propos',
                   style: TextStyle(fontSize: 16.0, fontFamily: 'PlayFair'),
                 ),
                 onTap: () {
                   Navigator.pushNamed(context, '/propos');
-                  print('hi $user');
                 },
               ),
               ListTile(
-                leading: Icon(Icons.call),
+                leading: Icon(
+                  Icons.call,
+                  color: Colors.teal,
+                ),
                 title: Text('Contacter nous',
                     style: TextStyle(fontSize: 16.0, fontFamily: 'PlayFair')),
                 onTap: () {
@@ -57,7 +47,10 @@ class MyDrawer extends StatelessWidget {
                 },
               ),
               ListTile(
-                leading: Icon(Icons.access_time_outlined),
+                leading: Icon(
+                  Icons.access_time_outlined,
+                  color: Colors.teal,
+                ),
                 title: Text('Prendre rendez-vous',
                     style: TextStyle(
                         fontSize: 16.0,
@@ -91,7 +84,10 @@ class MyDrawer extends StatelessWidget {
                 },
               ),
               ListTile(
-                leading: Icon(Icons.add_alarm),
+                leading: Icon(
+                  Icons.add_alarm,
+                  color: Colors.teal,
+                ),
                 title: Text('Consigne après don',
                     style: TextStyle(
                         fontSize: 16.0,

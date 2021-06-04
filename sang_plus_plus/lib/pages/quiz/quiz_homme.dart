@@ -38,9 +38,9 @@ class _QuizHommeState extends State<QuizHomme> {
     'Avez-vous ressenti dans les semaines précédentes une douleur thoracique ou un essoufflement inormale à la suite d\'un effort ?',
     'Avez-vous eu de la fièvre ou une infection dans les 2 dernieres semaines ?',
     'Avez-vous subi une fibroscopie gastrique pulmonaire ou une closcopie dans les 4 derniers mois ?',
-    'Avez-vous eu un piercing ou un tatouage dans les 4 derniers mois',
-    'Avez-vous eu des soins dentaires depuis moins de 24 heures',
-    'Avez-vous déjà eu une transfusion de sang ou une greffe d\'organe',
+    'Avez-vous eu un piercing ou un tatouage dans les 4 derniers mois ?',
+    'Avez-vous eu des soins dentaires depuis moins de 24 heures ?',
+    'Avez-vous déjà eu une transfusion de sang ou une greffe d\'organe ?',
     'Avez-vous voyagé dans les 4 derniers mois ?',
     'Avez-vous été opérée dans les 4 derniers mois ?',
     'Prenez-vous des médicaments ?'
@@ -66,7 +66,10 @@ class _QuizHommeState extends State<QuizHomme> {
                         Navigator.pop(context);
                       }
                     },
-                    icon: Icon(Icons.keyboard_return)),
+                    icon: Icon(
+                      Icons.keyboard_return,
+                      color: Colors.teal[400],
+                    )),
               ],
             ),
             SizedBox(
@@ -81,7 +84,8 @@ class _QuizHommeState extends State<QuizHomme> {
             SizedBox(height: 40.0),
             Center(
               child: Padding(
-                padding: const EdgeInsets.fromLTRB(15, 0, 0, 0),
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 50, vertical: 50),
                 child: Center(
                   child: Text(
                     '${txt[x]}',
@@ -112,7 +116,7 @@ class _QuizHommeState extends State<QuizHomme> {
                     ),
                     style: ButtonStyle(
                         backgroundColor:
-                            MaterialStateProperty.all<Color>(Colors.red),
+                            MaterialStateProperty.all<Color>(Colors.teal[400]),
                         shape:
                             MaterialStateProperty.all<RoundedRectangleBorder>(
                                 RoundedRectangleBorder(
@@ -151,7 +155,7 @@ class _QuizHommeState extends State<QuizHomme> {
                     ),
                     style: ButtonStyle(
                         backgroundColor:
-                            MaterialStateProperty.all<Color>(Colors.red),
+                            MaterialStateProperty.all<Color>(Colors.teal[400]),
                         shape:
                             MaterialStateProperty.all<RoundedRectangleBorder>(
                                 RoundedRectangleBorder(
@@ -162,7 +166,7 @@ class _QuizHommeState extends State<QuizHomme> {
             SizedBox(height: 40.0),
             Text(
               '${x + 1}/17',
-              style: TextStyle(color: Colors.blue, fontSize: 16),
+              style: TextStyle(color: Colors.teal, fontSize: 16),
             )
           ]),
         ));

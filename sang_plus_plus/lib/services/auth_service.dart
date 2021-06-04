@@ -6,6 +6,7 @@ import 'package:sang_plus_plus/services/database.dart';
 class AuthServices {
   FirebaseAuth _auth = FirebaseAuth.instance;
   String authUid = '';
+
   //create user based on firebase user
 
   MyUser _createUserFromFireUser(User user) {
@@ -24,6 +25,7 @@ class AuthServices {
       MyUser myUser = _createUserFromFireUser(fireUser);
       UserData(uid: myUser.uid)
           .updateUser(nom, prenom, telephone, email, password);
+
       return myUser.uid;
     } catch (e) {
       print(e.toString());
@@ -39,7 +41,7 @@ class AuthServices {
       User fireUser = userCredential.user;
       MyUser myUser = _createUserFromFireUser(fireUser);
       authUid = myUser.uid;
-      print('the uid :' + authUid);
+
       return myUser.uid;
     } catch (e) {
       print(e.toString());
@@ -51,6 +53,16 @@ class AuthServices {
   Future signOut() async {
     try {
       await _auth.signOut();
+    } catch (e) {
+      print(e.toString());
+      return null;
+    }
+  }
+
+  Future changePassword(String email) async {
+    try {
+      await _auth.sendPasswordResetEmail(email: email);
+      return 'nice';
     } catch (e) {
       print(e.toString());
       return null;

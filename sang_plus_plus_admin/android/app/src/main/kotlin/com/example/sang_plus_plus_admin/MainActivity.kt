@@ -1,4 +1,4 @@
-package com.example.sang_plus_plus_admin
+package com.plusplus.don_admin
 
 import io.flutter.embedding.android.FlutterActivity
 

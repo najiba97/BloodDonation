@@ -13,16 +13,16 @@ class _QuizState extends State<Quiz> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.grey[150],
+      backgroundColor: Colors.grey[200],
       body: Container(
         child: Padding(
-          padding: const EdgeInsets.fromLTRB(50, 150, 40, 0),
+          padding: const EdgeInsets.symmetric(horizontal: 50, vertical: 150),
           child: ListView(
             children: [
               Center(
                   child: Text(
                 'Êtes vous une femme ou un homme ?',
-                style: TextStyle(fontSize: 18, color: Colors.red),
+                style: TextStyle(fontSize: 18, color: Colors.teal[400]),
               )),
               SizedBox(height: 25),
               TextButton(
@@ -32,7 +32,7 @@ class _QuizState extends State<Quiz> {
                 child: Text('Femme', style: TextStyle(color: Colors.white)),
                 style: ButtonStyle(
                     backgroundColor:
-                        MaterialStateProperty.all<Color>(Colors.red),
+                        MaterialStateProperty.all<Color>(Colors.teal[400]),
                     shape: MaterialStateProperty.all<RoundedRectangleBorder>(
                         RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(25.0),
@@ -49,7 +49,7 @@ class _QuizState extends State<Quiz> {
                   ),
                   style: ButtonStyle(
                       backgroundColor:
-                          MaterialStateProperty.all<Color>(Colors.red),
+                          MaterialStateProperty.all<Color>(Colors.teal[400]),
                       shape: MaterialStateProperty.all<RoundedRectangleBorder>(
                           RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(25.0),

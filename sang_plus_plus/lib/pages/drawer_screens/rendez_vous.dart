@@ -36,11 +36,11 @@ class _RendezState extends State<Rendez> {
     return load
         ? CircularLoad()
         : Scaffold(
-            backgroundColor: Colors.grey[100],
+            backgroundColor: Colors.grey[200],
             appBar: AppBar(
               title: Text('Rendez-vous'),
               centerTitle: true,
-              backgroundColor: Colors.redAccent,
+              backgroundColor: Colors.teal[400],
               actions: [
                 IconButton(
                   onPressed: () {
@@ -196,7 +196,6 @@ class _RendezState extends State<Rendez> {
                               setState(() {
                                 valueChoose = value;
                                 _gs = value;
-                                print(_gs);
                               });
                             },
                             items: listItem.map((valueItem) {
@@ -234,6 +233,7 @@ class _RendezState extends State<Rendez> {
                       ),
                     )),
                 FloatingActionButton(
+                  backgroundColor: Colors.teal[400],
                   onPressed: () async {
                     if (formKey.currentState.validate() == true) {
                       setState(() {
@@ -256,7 +256,6 @@ class _RendezState extends State<Rendez> {
                             );
                           });
                     }
-                    ;
                   },
                   child: Icon(Icons.done),
                 )

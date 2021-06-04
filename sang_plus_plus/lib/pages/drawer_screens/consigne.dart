@@ -12,7 +12,7 @@ class _ConsigneState extends State<Consigne> {
     return Scaffold(
       appBar: AppBar(
         title: Text('consigne aprés don'),
-        backgroundColor: Colors.redAccent,
+        backgroundColor: Colors.teal[400],
         actions: [
           IconButton(
             onPressed: () {
@@ -24,12 +24,7 @@ class _ConsigneState extends State<Consigne> {
         ],
       ),
       body: Container(
-        decoration: BoxDecoration(
-          gradient: LinearGradient(
-              begin: Alignment.centerLeft,
-              end: Alignment.centerRight,
-              colors: [Colors.red[100], Colors.red[300]]),
-        ),
+        color: Colors.grey[200],
         child: (ListView(
           children: [
             Padding(

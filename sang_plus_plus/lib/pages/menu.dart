@@ -1,14 +1,13 @@
-import 'package:chewie/chewie.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import 'package:sang_plus_plus/pages/widgets/bottom.dart';
+import 'package:sang_plus_plus/pages/widgets/carousel.dart';
 import 'package:sang_plus_plus/pages/widgets/cirular_load.dart';
 
 import 'package:sang_plus_plus/pages/widgets/drawer.dart';
 import 'package:sang_plus_plus/services/auth_service.dart';
-import 'package:video_player/video_player.dart';
 
 class Menu extends StatefulWidget {
   @override
@@ -22,36 +21,13 @@ class _MenuState extends State<Menu> {
   final int indexPage = 0;
   bool disconnect = false;
 
-  List<String> videos = ['videos/motivateDonor.mp4'];
-  List<VideoPlayerController> videoControllers = [];
-
-  List<ChewieController> _chewieController = [];
-
   @override
   void initState() {
     super.initState();
-    videoControllers = [
-      VideoPlayerController.asset(videos[0],
-          videoPlayerOptions: VideoPlayerOptions()),
-    ];
-
-    _chewieController = [
-      ChewieController(
-        videoPlayerController: videoControllers[0],
-        aspectRatio: 3 / 2,
-        autoPlay: false,
-        looping: false,
-        placeholder: Image(
-          image: AssetImage('assets/motiveSang_Moment.jpg'),
-        ),
-      ),
-    ];
   }
 
   @override
   void dispose() {
-    videoControllers[0].dispose();
-    _chewieController[0].dispose();
     super.dispose();
   }
 
@@ -60,65 +36,64 @@ class _MenuState extends State<Menu> {
     return disconnect
         ? CircularLoad()
         : Scaffold(
-            backgroundColor: Colors.red[100],
             drawer: MyDrawer(),
-            appBar: PreferredSize(
-              preferredSize: Size.fromHeight(150),
-              child: AppBar(
-                  elevation: 0,
-                  iconTheme: IconThemeData(color: Colors.grey),
-                  flexibleSpace: Image(
-                    image: AssetImage('assets/sangplus.jpg'),
-                    fit: BoxFit.cover,
+            appBar: AppBar(
+                centerTitle: true,
+                toolbarHeight: 150,
+                title: Padding(
+                  padding: const EdgeInsets.only(top: 80),
+                  child: Text(
+                    'Sang++',
+                    style: TextStyle(
+                        color: Colors.teal[400],
+                        fontSize: 30,
+                        fontWeight: FontWeight.w600),
                   ),
-                  backgroundColor: Colors.redAccent[200],
-                  actions: [
-                    TextButton.icon(
-                        onPressed: user != null
-                            ? () {
-                                setState(() {
-                                  disconnect = true;
-                                });
-                                _auth.signOut();
-                              }
-                            : () {
-                                Navigator.pushNamed(context, '/authentif');
-                              },
-                        icon: user != null
-                            ? Icon(Icons.logout)
-                            : Icon(Icons.login),
-                        label: user != null
-                            ? Text('déconnexion')
-                            : Text('connexion'))
-                  ]),
-            ),
+                ),
+                backgroundColor: Colors.grey[100],
+                elevation: 0,
+                iconTheme: IconThemeData(color: Colors.teal[400]),
+                actions: [
+                  IconButton(
+                    onPressed: user != null
+                        ? () {
+                            setState(() {
+                              disconnect = true;
+                            });
+                            _auth.signOut();
+                          }
+                        : () {
+                            Navigator.pushNamed(context, '/authentif');
+                          },
+                    icon: user != null ? Icon(Icons.logout) : Icon(Icons.login),
+                  )
+                ]),
             body: Center(
               child: ListView(
                 children: [
                   Container(
-                    height: 250,
-                    width: 200,
-                    child: ListView(
-                        scrollDirection: Axis.horizontal,
-                        children: List.generate(1, (index) {
-                          return Column(
-                            children: [
-                              Expanded(
-                                  child: Padding(
-                                padding: const EdgeInsets.all(20),
-                                child: Chewie(
-                                  controller: _chewieController[index],
-                                ),
-                              )),
-                            ],
-                          );
-                        })),
-                  )
+                    height: MediaQuery.of(context).size.height,
+                    width: MediaQuery.of(context).size.width,
+                    color: Colors.grey[200],
+                    child: Column(
+                      children: [
+                        SizedBox(
+                          height: 20,
+                        ),
+                        MyCaroussel(),
+                      ],
+                    ),
+                  ),
                 ],
               ),
             ),
-            bottomNavigationBar: MyBottom(
-              indexPage: indexPage,
+            bottomNavigationBar: Theme(
+              data: Theme.of(context).copyWith(
+                canvasColor: Colors.grey[100],
+              ),
+              child: MyBottom(
+                indexPage: indexPage,
+              ),
             ),
           );
   }
