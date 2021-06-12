@@ -13,9 +13,19 @@ class _AuthAdminState extends State<AuthAdmin> {
   String email, password;
 
   bool disconnect = false;
+  bool tt = true;
+  bool tf = false;
 
   @override
   Widget build(BuildContext context) {
+    int x = tt == true ? 0 : 1;
+
+    Icon eye = Icon(Icons.remove_red_eye);
+    Icon hide = Icon(Icons.visibility_off_rounded);
+
+    List<Icon> eyeHide = [eye, hide];
+    var y;
+
     return disconnect
         ? CircularLoad()
         : Scaffold(
@@ -28,7 +38,7 @@ class _AuthAdminState extends State<AuthAdmin> {
               ),
               elevation: 0.5,
               backgroundColor: Colors.grey[100],
-              toolbarHeight: 200,
+              toolbarHeight: 130,
               title: Padding(
                 padding: const EdgeInsets.only(top: 100),
                 child: Text(
@@ -48,8 +58,9 @@ class _AuthAdminState extends State<AuthAdmin> {
                     Column(
                       children: [
                         Text(
-                          'c\'est la page d\'inscription pour les administrateur ',
-                          style: TextStyle(color: Colors.grey[600]),
+                          'c\'est la page d\'inscription pour les administrateurs et les médecins ',
+                          style: TextStyle(
+                              color: Colors.grey[600], letterSpacing: 1),
                         ),
                         SizedBox(
                           height: 50,
@@ -95,11 +106,20 @@ class _AuthAdminState extends State<AuthAdmin> {
                           height: 30.0,
                         ),
                         TextFormField(
-                          obscureText: true,
+                          obscureText: tt,
                           onChanged: (val) {
                             password = val;
                           },
                           decoration: InputDecoration(
+                              suffixIcon: IconButton(
+                                  onPressed: () {
+                                    setState(() {
+                                      y = tt;
+                                      tt = tf;
+                                      tf = y;
+                                    });
+                                  },
+                                  icon: eyeHide[x]),
                               border: UnderlineInputBorder(
                                 borderSide: BorderSide(color: Colors.white),
                               ),
@@ -114,15 +134,15 @@ class _AuthAdminState extends State<AuthAdmin> {
                               Navigator.pushNamed(context, '/passe');
                             },
                             child: Text(
-                              'mot de passe oublié',
+                              'mot de passe oublier ?',
                               style: TextStyle(color: Colors.blue[900]),
                             )),
                         SizedBox(
-                          height: MediaQuery.of(context).size.height / 4,
+                          height: 100,
                         ),
                         SizedBox(
                           width: MediaQuery.of(context).size.width,
-                          height: 45,
+                          height: 35,
                           child: TextButton(
                             onPressed: () async {
                               setState(() {

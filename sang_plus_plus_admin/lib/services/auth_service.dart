@@ -11,6 +11,8 @@ class AuthService {
       User user = userCredential.user;
       AdminMedcinData(uid: user.uid)
           .updateUser(nom, prenom, email, profession, password);
+      AdminMedcinData(uid: user.uid).setNotif();
+      
     } catch (e) {
       print(e.toString());
       return null;

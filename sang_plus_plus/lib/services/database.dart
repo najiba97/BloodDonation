@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 class UserData {
   final String uid;
@@ -8,6 +9,12 @@ class UserData {
   //instancier collection de formulaire dans le firestore
   final CollectionReference forms =
       FirebaseFirestore.instance.collection('forms');
+  final CollectionReference notif =
+      FirebaseFirestore.instance.collection('notification');
+  final CollectionReference tabDate =
+      FirebaseFirestore.instance.collection('dateRendezVous');
+
+  FirebaseAuth auth = FirebaseAuth.instance;
 
   UserData({this.uid});
   // upadateUser va prendre les information donner par user et les mettre en documents firestore
@@ -19,7 +26,11 @@ class UserData {
       'téléphone': telephone,
       'email': email,
       'mot de passe': password,
-      'photo de profile': null
+      'photo de profile': null,
+      'identif': 'utilisateur',
+      'demande en cours': false,
+      'donner': false,
+      'nombre de don': 0,
     });
   }
 
@@ -46,12 +57,55 @@ class UserData {
       String nom, prenom, email, telephone, date, sexe, gs) async {
     return await forms.doc(uid).set({
       'nom': nom,
-      'prenom': prenom,
+      'prénom': prenom,
       'email': email,
-      'telephone': telephone,
+      'téléphone': telephone,
       'date': date,
+      'sexe': sexe,
       'groupe sanguin': gs,
-      'sexe': sexe
+      'accepter': false,
+      'envoyer': true,
+      'uid': auth.currentUser.uid,
     });
   }
+
+  Future setNotif() async {
+    return await notif.doc(uid).set({
+      'date&heure': null,
+      'read': false,
+    });
+  }
+
+  Future updateNotif() async {
+    return await notif.doc(auth.currentUser.uid).update({
+      'read': true,
+    });
+  }
+
+  Future demandeEnvoyer() async {
+    return await users.doc(auth.currentUser.uid).update({
+      'demande en cours': true,
+    });
+  }
+
+  Future createDateRendezVous(
+      String dateHeure, nom, prenom, sexe, gs, uid) async {
+    return await tabDate.doc(uid).set({
+      'date don': dateHeure,
+      'nom&prénomDonneur': nom + ' ' + prenom,
+      'sexe': sexe,
+      'groupe sanguin': gs,
+      'uid': uid,
+      'confirmed': false,
+    });
+  }
+
+  Stream<DocumentSnapshot> get notification =>
+      notif.doc(auth.currentUser.uid).snapshots();
+
+  Stream<DocumentSnapshot> get rendez =>
+      tabDate.doc(auth.currentUser.uid).snapshots();
+
+  Stream<DocumentSnapshot> get userinfo =>
+      users.doc(auth.currentUser.uid).snapshots();
 }

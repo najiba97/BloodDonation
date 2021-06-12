@@ -27,14 +27,21 @@ void main() async {
   runApp(MyApp());
 }
 
+
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // stream sur l'objet User (firebase)
-    return StreamProvider<User>.value(
-      initialData: null,
+    return MultiProvider(
+      providers: [
+        StreamProvider<User>.value(
+          initialData: null,
+          value: AuthServices().authStateChanges,
+        ),
+      ],
+
       // le cible de stream (l'etat d'utilisateur null ou connecté)
-      value: AuthServices().authStateChanges,
+
       // Material App c'est la class main qui contiens tous leas autre class
       child: MaterialApp(
           debugShowCheckedModeBanner: false,

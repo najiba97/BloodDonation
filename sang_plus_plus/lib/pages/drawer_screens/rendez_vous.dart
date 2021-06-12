@@ -82,9 +82,9 @@ class _RendezState extends State<Rendez> {
                                     borderSide: BorderSide(color: Colors.black),
                                     borderRadius: BorderRadius.circular(20.0),
                                   ),
-                                  labelText: 'Nom',
+                                  labelText: 'Nom (ce champ est obligatoire)',
                                   labelStyle: TextStyle(fontSize: 16),
-                                  hintText: ('ecrire votre nom'))),
+                                  hintText: ('ecrire votre nom '))),
                           SizedBox(
                             height: 15,
                           ),
@@ -103,7 +103,8 @@ class _RendezState extends State<Rendez> {
                                   border: OutlineInputBorder(
                                     borderRadius: BorderRadius.circular(20.0),
                                   ),
-                                  labelText: 'prénom',
+                                  labelText:
+                                      'Prénom (ce champ est obligatoire)',
                                   labelStyle: TextStyle(fontSize: 16),
                                   hintText: ('ecrire votre prénom'))),
                           SizedBox(
@@ -124,7 +125,7 @@ class _RendezState extends State<Rendez> {
                                   border: OutlineInputBorder(
                                     borderRadius: BorderRadius.circular(20.0),
                                   ),
-                                  labelText: 'Email',
+                                  labelText: 'Email (ce champ est obligatoire)',
                                   labelStyle: TextStyle(fontSize: 16),
                                   hintText: ('ecrire votre email'))),
                           SizedBox(
@@ -145,7 +146,8 @@ class _RendezState extends State<Rendez> {
                                   border: OutlineInputBorder(
                                     borderRadius: BorderRadius.circular(20.0),
                                   ),
-                                  labelText: 'numéro de téléphone',
+                                  labelText:
+                                      'numéro de téléphone : (ce champ est obligatoire)',
                                   labelStyle: TextStyle(fontSize: 16),
                                   hintText:
                                       ('ecrire votre numéro de téléphone'))),
@@ -162,7 +164,8 @@ class _RendezState extends State<Rendez> {
                               filled: true,
                               border: OutlineInputBorder(
                                   borderRadius: BorderRadius.circular(20.0)),
-                              labelText: "date de naissance",
+                              labelText:
+                                  "date de naissance (ce champ est obligatoire)",
                               labelStyle: TextStyle(fontSize: 16),
                               hintText: "date",
                             ),
@@ -182,7 +185,6 @@ class _RendezState extends State<Rendez> {
 
                               setState(() {
                                 _date = dateCtl.text;
-                                print(_date);
                               });
                             },
                           ),
@@ -226,7 +228,6 @@ class _RendezState extends State<Rendez> {
                             onChanged: (value) {
                               setRadioValue(value);
                               _sexe = 'femme';
-                              print('femme');
                             },
                           ),
                         ],
@@ -245,6 +246,7 @@ class _RendezState extends State<Rendez> {
                       setState(() {
                         load = false;
                       });
+                      await UserData().demandeEnvoyer();
 
                       Navigator.pop(context);
 
@@ -252,13 +254,13 @@ class _RendezState extends State<Rendez> {
                           context: context,
                           builder: (BuildContext context) {
                             return AlertDialog(
-                              content: Text('votre demande est bien inscrit'),
+                              content: Text('votre demande a été bien reçue'),
                             );
                           });
                     }
                   },
                   child: Icon(Icons.done),
-                )
+                ),
               ],
             ));
   }

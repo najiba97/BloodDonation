@@ -9,7 +9,7 @@ class CreeCompte extends StatefulWidget {
 class _CreeCompteState extends State<CreeCompte> {
   final formKey = GlobalKey<FormState>();
 
-  final List identif = ['admin', 'medcin'];
+  final List identif = ['administrateur', 'medecin'];
   AuthService authService = AuthService();
   bool notIdentified = true;
 
@@ -20,19 +20,29 @@ class _CreeCompteState extends State<CreeCompte> {
       _confirmPassword,
       valueChoose,
       _identif = '';
+  bool tt = true, tf = false, ttc = true, tfc = false;
 
   @override
   Widget build(BuildContext context) {
+    int x = tt == true ? 0 : 1;
+    int z = ttc == true ? 0 : 1;
+
+    Icon eye = Icon(Icons.remove_red_eye);
+    Icon hide = Icon(Icons.visibility_off_rounded);
+
+    List<Icon> eyeHide = [eye, hide];
+    var y;
     return Scaffold(
       appBar: AppBar(
+        centerTitle: true,
         leading: null,
         elevation: 0.5,
         backgroundColor: Colors.grey[100],
-        toolbarHeight: 200,
+        toolbarHeight: 130,
         title: Padding(
           padding: const EdgeInsets.only(top: 100),
           child: Text(
-            'CREE COMPTE',
+            'CRÉE COMPTE',
             style: TextStyle(
                 color: Colors.blue[900],
                 fontWeight: FontWeight.bold,
@@ -50,8 +60,8 @@ class _CreeCompteState extends State<CreeCompte> {
               child: Column(
                 children: [
                   Text(
-                    'c\'est la page d\'inscription pour les administrateur ',
-                    style: TextStyle(color: Colors.grey[600]),
+                    'dans cette page vous pouvez créer une demande si vous êtes medecin ou administrateur.',
+                    style: TextStyle(color: Colors.grey[600], letterSpacing: 1),
                   ),
                   SizedBox(
                     height: 30,
@@ -103,7 +113,7 @@ class _CreeCompteState extends State<CreeCompte> {
                     decoration: InputDecoration(
                         border: UnderlineInputBorder(),
                         hintText: 'prénom',
-                        icon: Icon(Icons.account_circle_rounded)),
+                        icon: Icon(Icons.account_circle_outlined)),
                   ),
                   SizedBox(height: 10),
                   TextFormField(
@@ -119,7 +129,7 @@ class _CreeCompteState extends State<CreeCompte> {
                   ),
                   SizedBox(height: 10),
                   TextFormField(
-                    obscureText: true,
+                    obscureText: tt,
                     onChanged: (value) {
                       _password = value;
                     },
@@ -127,13 +137,22 @@ class _CreeCompteState extends State<CreeCompte> {
                         ? 'mot de passe ne peut pas etre vide'
                         : null,
                     decoration: InputDecoration(
+                        suffixIcon: IconButton(
+                            onPressed: () {
+                              setState(() {
+                                y = tt;
+                                tt = tf;
+                                tf = y;
+                              });
+                            },
+                            icon: eyeHide[x]),
                         border: UnderlineInputBorder(),
                         hintText: 'mot de passe',
                         icon: Icon(Icons.lock)),
                   ),
                   SizedBox(height: 10),
                   TextFormField(
-                    obscureText: true,
+                    obscureText: ttc,
                     onChanged: (value) {
                       _confirmPassword = value;
                     },
@@ -147,15 +166,24 @@ class _CreeCompteState extends State<CreeCompte> {
                       return erreur;
                     },
                     decoration: InputDecoration(
+                        suffixIcon: IconButton(
+                            onPressed: () {
+                              setState(() {
+                                y = ttc;
+                                ttc = tfc;
+                                tfc = y;
+                              });
+                            },
+                            icon: eyeHide[z]),
                         border: UnderlineInputBorder(),
                         hintText: 'confirmer mot de passe',
-                        icon: Icon(Icons.lock)),
+                        icon: Icon(Icons.lock_open_sharp)),
                   ),
                   SizedBox(
                     height: 10,
                   ),
                   DropdownButton(
-                    hint: Text('profession'),
+                    hint: Text('métier'),
                     value: valueChoose,
                     onChanged: (value) {
                       setState(() {
@@ -176,12 +204,10 @@ class _CreeCompteState extends State<CreeCompte> {
                           'ce champ est obligatoire',
                           style: TextStyle(color: Colors.red, fontSize: 14.0),
                         ),
-                  SizedBox(
-                    height: MediaQuery.of(context).size.height / 12,
-                  ),
+                  SizedBox(height: 10),
                   SizedBox(
                     width: MediaQuery.of(context).size.width,
-                    height: 45,
+                    height: 35,
                     child: TextButton(
                       onPressed: () async {
                         if (formKey.currentState.validate() && _identif != '') {

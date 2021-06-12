@@ -25,7 +25,9 @@ class AuthServices {
       MyUser myUser = _createUserFromFireUser(fireUser);
       UserData(uid: myUser.uid)
           .updateUser(nom, prenom, telephone, email, password);
-
+      UserData(uid: myUser.uid).setNotif();
+      
+       
       return myUser.uid;
     } catch (e) {
       print(e.toString());

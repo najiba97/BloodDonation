@@ -21,7 +21,7 @@ class _LoadingState extends State<Loading> {
         });
       } else {
         Timer(Duration(seconds: 3), () {
-          Navigator.pushNamed(context, '/auth');
+          Navigator.pushNamed(context, '/auth_admin');
         });
       }
     });

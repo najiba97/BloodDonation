@@ -43,7 +43,7 @@ class _AuthentifState extends State<Authentif> {
               centerTitle: true,
               elevation: 0.5,
               backgroundColor: Colors.grey[100],
-              toolbarHeight: 150,
+              toolbarHeight: 130,
               title: Padding(
                 padding: const EdgeInsets.only(top: 100),
                 child: Text(
@@ -63,7 +63,7 @@ class _AuthentifState extends State<Authentif> {
                     Column(
                       children: [
                         Text(
-                          'c\'est la page d\'inscription pour les administrateur ',
+                          'Bienvenue dans la page d\'inscription de donneurs de sang.',
                           style: TextStyle(
                               color: Colors.grey[600], letterSpacing: 0.2),
                         ),
@@ -160,7 +160,7 @@ class _AuthentifState extends State<Authentif> {
                         ),
                         SizedBox(
                           width: MediaQuery.of(context).size.width,
-                          height: 45,
+                          height: 35,
                           child: TextButton(
                             onPressed: () async {
                               setState(() => connection = true);
@@ -182,19 +182,6 @@ class _AuthentifState extends State<Authentif> {
                               backgroundColor:
                                   MaterialStateProperty.all(Colors.teal[400]),
                             ),
-                          ),
-                        ),
-                        SizedBox(
-                          height: 20.0,
-                        ),
-                        TextButton(
-                          onPressed: () {
-                            Navigator.pushNamed(context, '/creeCompte');
-                          },
-                          child: Text(
-                            'S\'inscrire',
-                            style: TextStyle(
-                                color: Colors.teal[400], fontSize: 16.0),
                           ),
                         ),
                       ],

@@ -33,11 +33,11 @@ class _CreateCountState extends State<CreateCount> {
               centerTitle: true,
               elevation: 0.5,
               backgroundColor: Colors.grey[100],
-              toolbarHeight: 150,
+              toolbarHeight: 130,
               title: Padding(
                 padding: const EdgeInsets.only(top: 100),
                 child: Text(
-                  'Cree Compte',
+                  'CRÉE COMPTE',
                   style: TextStyle(
                       color: Colors.teal[400],
                       fontWeight: FontWeight.bold,
@@ -55,7 +55,7 @@ class _CreateCountState extends State<CreateCount> {
                       child: Column(
                         children: [
                           Text(
-                            'c\'est la page d\'inscription pour les administrateur ',
+                            'Dans cette page vous pouvez créer un compte et devenir donneur.',
                             style: TextStyle(color: Colors.grey[600]),
                           ),
                           SizedBox(
@@ -130,7 +130,7 @@ class _CreateCountState extends State<CreateCount> {
                                 ),
                                 hintText: 'Prénom',
                                 icon: Icon(
-                                  Icons.account_circle,
+                                  Icons.account_circle_outlined,
                                   color: Colors.teal[400],
                                 )),
                           ),
@@ -257,11 +257,11 @@ class _CreateCountState extends State<CreateCount> {
                                 )),
                           ),
                           SizedBox(
-                            height: 60,
+                            height: 45,
                           ),
                           SizedBox(
                             width: MediaQuery.of(context).size.width,
-                            height: 45,
+                            height: 35,
                             child: TextButton(
                               onPressed: () async {
                                 if (_formKey.currentState.validate() == true) {
@@ -295,16 +295,6 @@ class _CreateCountState extends State<CreateCount> {
                           Text(
                             error,
                             style: TextStyle(color: Colors.red),
-                          ),
-                          TextButton(
-                            onPressed: () {
-                              Navigator.pop(context, '/authentif');
-                            },
-                            child: Text(
-                              'J\'ai déjà un compte',
-                              style: TextStyle(
-                                  color: Colors.teal[400], fontSize: 16.0),
-                            ),
                           ),
                         ],
                       ),
