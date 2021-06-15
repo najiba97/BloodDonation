@@ -20,6 +20,7 @@ class _AcceptState extends State<Accept> {
   bool sameAppointment = false;
   AdminMedcinData adminMedcinData = AdminMedcinData();
   dynamic dateH;
+
   DateTime dateTime = DateTime.now();
   List heureRendez = [
     '08:00 AM',
@@ -42,9 +43,10 @@ class _AcceptState extends State<Accept> {
     '16:30 PM',
     '17:00 PM',
     '17:30 PM',
-    '18:00 PM',
+    '21:06 PM',
   ];
   String valueChoose;
+  String time = '';
 
   @override
   Widget build(BuildContext context) {
@@ -97,6 +99,15 @@ class _AcceptState extends State<Accept> {
                                   lastDate: DateTime(dateTime.year + 1));
                               if (myDate != null) {
                                 dateCtl.text = DateFormat.yMd().format(myDate);
+                                String month =
+                                    myDate.month.toString().length == 1
+                                        ? '0${myDate.month}'
+                                        : myDate.month.toString();
+                                String day = myDate.day.toString().length == 1
+                                    ? '0${myDate.day}'
+                                    : myDate.day.toString();
+                                time = '${myDate.year}-$month-$day';
+                                print(time);
                               }
                               setState(() {
                                 date = dateCtl.text;
@@ -114,7 +125,7 @@ class _AcceptState extends State<Accept> {
                                 valueChoose = value;
                                 heure = value;
                               });
-                              dateH = date + ' à ' + heure;
+
                               rendezDate.docs.forEach((element) {
                                 if (dateH == element['date don']) {
                                   sameAppointment = true;
@@ -157,6 +168,8 @@ class _AcceptState extends State<Accept> {
                               } else if (formKey.currentState.validate() ==
                                       true &&
                                   heure != '') {
+                                dateH = date + ' à ' + heure;
+                                time += ' ${heure.split(' ')[0]}';
                                 await adminMedcinData.updateNotif(
                                     dateH, rendez.docs[widget.index]['uid']);
                                 await adminMedcinData.demandeRecu(
@@ -168,7 +181,10 @@ class _AcceptState extends State<Accept> {
                                   rendez.docs[widget.index]['sexe'],
                                   rendez.docs[widget.index]['groupe sanguin'],
                                   rendez.docs[widget.index]['uid'],
+                                  time,
                                 );
+                                await adminMedcinData.dateDon(
+                                    time, rendez.docs[widget.index]['uid']);
                                 await adminMedcinData.effacerRendez(
                                     rendez.docs[widget.index]['uid']);
                                 Navigator.pushNamed(

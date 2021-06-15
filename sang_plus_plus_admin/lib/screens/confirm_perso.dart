@@ -100,6 +100,9 @@ class _ConfirmPersoState extends State<ConfirmPerso> {
                             sexe, gs, widget.donorsInfo[widget.index]['uid']);
                         adminMedcinData.reUpdateNotif(
                             widget.donorsInfo[widget.index]['uid']);
+                        adminMedcinData.updateStat('nombreTotale', 1);
+                        adminMedcinData.updateStat(gs, 1);
+                        adminMedcinData.updateStat(sexe, 1);
                         Navigator.pop(context);
 
                         showDialog(

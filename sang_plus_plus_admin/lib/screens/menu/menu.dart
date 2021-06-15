@@ -16,11 +16,13 @@ class Menu extends StatefulWidget {
 
 class _MenuState extends State<Menu> {
   bool disconect = false;
+  Timestamp date = Timestamp.now();
 
   AuthService authService = AuthService();
 
   @override
   Widget build(BuildContext context) {
+    print(date.toString());
     List<Widget> medecinDrawer = [
       ListTile(
         leading: Icon(Icons.settings),
@@ -149,126 +151,174 @@ class _MenuState extends State<Menu> {
                         padding: EdgeInsets.symmetric(horizontal: 20.0),
                         child: ListView(
                           children: [
-                            Column(
-                              children: [
-                                Container(
-                                  padding: EdgeInsets.symmetric(
-                                      horizontal: 20, vertical: 25),
-                                  decoration: BoxDecoration(
-                                      color: Colors.white,
-                                      boxShadow: [
-                                        BoxShadow(
-                                            offset: Offset(0, 21),
-                                            blurRadius: 53,
-                                            color:
-                                                Colors.black.withOpacity(0.1))
-                                      ],
-                                      borderRadius: BorderRadius.circular(20)),
-                                  child: Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
+                            StreamBuilder(
+                              stream: FirebaseFirestore.instance
+                                  .collection('statistique')
+                                  .doc('stat')
+                                  .snapshots(),
+                              builder: (context, snapshot) {
+                                var document = snapshot.data;
+                                if (!snapshot.hasData) {
+                                  return Text('loading data please wait....');
+                                } else {
+                                  return Column(
                                     children: [
-                                      Text(
-                                        'Nombre de donneurs ',
-                                        style: TextStyle(
-                                            color: Colors.black54,
-                                            fontSize: 15,
-                                            fontWeight: FontWeight.w600),
-                                      ),
-                                      SizedBox(
-                                        height: 15,
-                                      ),
-                                      Row(
-                                        children: [
-                                          Text(
-                                            '100',
-                                            style: TextStyle(
-                                                color: Colors.blue[900],
-                                                fontSize: 40,
-                                                fontWeight: FontWeight.w800),
-                                          ),
-                                        ],
-                                      ),
-                                      Divider(
-                                        thickness: 0.8,
-                                      ),
-                                      SizedBox(
-                                        height: 15,
-                                      ),
-                                      Text(
-                                        'nos statistiques',
-                                        style: TextStyle(
-                                            color: Colors.grey[700],
-                                            fontWeight: FontWeight.w300,
-                                            fontSize: 16),
-                                      ),
-                                      SizedBox(
-                                        height: 15,
-                                      ),
-                                      WeeklyChart(),
-                                      Divider(),
-                                      SizedBox(
-                                        height: 15,
-                                      ),
-                                      Text(
-                                        'pourcentage de donneurs par sex',
-                                        style: TextStyle(
-                                            color: Colors.grey[700],
-                                            fontWeight: FontWeight.w300,
-                                            fontSize: 16),
-                                      ),
-                                      SizedBox(
-                                        height: 20,
-                                      ),
-                                      Row(
-                                        children: [
-                                          Column(
-                                            crossAxisAlignment:
-                                                CrossAxisAlignment.start,
-                                            children: [
-                                              Text(
-                                                '40%',
-                                                style: TextStyle(
-                                                    fontSize: 20,
-                                                    color: Colors.blue[900]),
-                                              ),
-                                              Text(
-                                                'homme',
-                                                style: TextStyle(
-                                                    fontSize: 16,
-                                                    color: Colors.blue[900]),
-                                              )
+                                      Container(
+                                        padding: EdgeInsets.symmetric(
+                                            horizontal: 20, vertical: 25),
+                                        decoration: BoxDecoration(
+                                            color: Colors.white,
+                                            boxShadow: [
+                                              BoxShadow(
+                                                  offset: Offset(0, 21),
+                                                  blurRadius: 53,
+                                                  color: Colors.black
+                                                      .withOpacity(0.1))
                                             ],
-                                          ),
-                                          SizedBox(
-                                            width: 50,
-                                          ),
-                                          Column(
-                                            children: [
-                                              Text(
-                                                '60%',
-                                                style: TextStyle(
-                                                    fontSize: 20,
-                                                    color: Colors.blue[900]),
-                                              ),
-                                              Text(
-                                                'femme',
-                                                style: TextStyle(
-                                                    fontSize: 16,
-                                                    color: Colors.blue[900]),
-                                              )
-                                            ],
-                                          )
-                                        ],
-                                      )
+                                            borderRadius:
+                                                BorderRadius.circular(20)),
+                                        child: Column(
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          children: [
+                                            Text(
+                                              'Nombre de donneurs ',
+                                              style: TextStyle(
+                                                  color: Colors.black54,
+                                                  fontSize: 15,
+                                                  fontWeight: FontWeight.w600),
+                                            ),
+                                            SizedBox(
+                                              height: 15,
+                                            ),
+                                            Row(
+                                              children: [
+                                                Text(
+                                                  document['nombreTotale']
+                                                      .toString(),
+                                                  style: TextStyle(
+                                                      color: Colors.blue[900],
+                                                      fontSize: 40,
+                                                      fontWeight:
+                                                          FontWeight.w800),
+                                                ),
+                                              ],
+                                            ),
+                                            Divider(
+                                              thickness: 0.8,
+                                            ),
+                                            SizedBox(
+                                              height: 15,
+                                            ),
+                                            Text(
+                                              'nos statistiques',
+                                              style: TextStyle(
+                                                  color: Colors.grey[700],
+                                                  fontWeight: FontWeight.w300,
+                                                  fontSize: 16),
+                                            ),
+                                            SizedBox(
+                                              height: 15,
+                                            ),
+                                            WeeklyChart(),
+                                            Divider(),
+                                            SizedBox(
+                                              height: 15,
+                                            ),
+                                            Text(
+                                              'pourcentage de donneurs par sex',
+                                              style: TextStyle(
+                                                  color: Colors.grey[700],
+                                                  fontWeight: FontWeight.w300,
+                                                  fontSize: 16),
+                                            ),
+                                            SizedBox(
+                                              height: 20,
+                                            ),
+                                            Row(
+                                              children: [
+                                                Column(
+                                                  crossAxisAlignment:
+                                                      CrossAxisAlignment.start,
+                                                  children: [
+                                                    document['nombreTotale'] ==
+                                                            0
+                                                        ? Text(
+                                                            '0%',
+                                                            style: TextStyle(
+                                                                fontSize: 20,
+                                                                color: Colors
+                                                                    .blue[900]),
+                                                          )
+                                                        : Text(
+                                                            (document['homme'] /
+                                                                        document[
+                                                                            'nombreTotale'] *
+                                                                        100)
+                                                                    .toString() +
+                                                                '%',
+                                                            style: TextStyle(
+                                                                fontSize: 20,
+                                                                color: Colors
+                                                                    .blue[900]),
+                                                          ),
+                                                    Text(
+                                                      'homme',
+                                                      style: TextStyle(
+                                                          fontSize: 16,
+                                                          color:
+                                                              Colors.blue[900]),
+                                                    )
+                                                  ],
+                                                ),
+                                                SizedBox(
+                                                  width: 50,
+                                                ),
+                                                Column(
+                                                  children: [
+                                                    document['nombreTotale'] ==
+                                                            0
+                                                        ? Text(
+                                                            '0%',
+                                                            style: TextStyle(
+                                                                fontSize: 20,
+                                                                color: Colors
+                                                                    .blue[900]),
+                                                          )
+                                                        : Text(
+                                                            (document['femme'] /
+                                                                        document[
+                                                                            'nombreTotale'] *
+                                                                        100)
+                                                                    .toString() +
+                                                                '%',
+                                                            style: TextStyle(
+                                                                fontSize: 20,
+                                                                color: Colors
+                                                                    .blue[900]),
+                                                          ),
+                                                    Text(
+                                                      'femme',
+                                                      style: TextStyle(
+                                                          fontSize: 16,
+                                                          color:
+                                                              Colors.blue[900]),
+                                                    )
+                                                  ],
+                                                )
+                                              ],
+                                            )
+                                          ],
+                                        ),
+                                      ),
+                                      SizedBox(
+                                        height: 30,
+                                      ),
+                                      MyCaroussel(),
                                     ],
-                                  ),
-                                ),
-                                SizedBox(
-                                  height: 30,
-                                ),
-                                MyCaroussel(),
-                              ],
+                                  );
+                                }
+                              },
                             ),
                           ],
                         ),

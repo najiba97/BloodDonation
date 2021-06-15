@@ -31,6 +31,7 @@ class UserData {
       'demande en cours': false,
       'donner': false,
       'nombre de don': 0,
+      'date don': null,
     });
   }
 
@@ -47,7 +48,7 @@ class UserData {
 
   // update nom and prenom
 
-  Future updateInfo(String prop, String value) async {
+  Future updateInfo(String prop, dynamic value) async {
     return await users.doc(uid).update({prop: value});
   }
 
@@ -82,6 +83,7 @@ class UserData {
     });
   }
 
+   
   Future demandeEnvoyer() async {
     return await users.doc(auth.currentUser.uid).update({
       'demande en cours': true,

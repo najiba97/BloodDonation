@@ -12,6 +12,8 @@ class AdminMedcinData {
       FirebaseFirestore.instance.collection('notification');
   final CollectionReference tabDate =
       FirebaseFirestore.instance.collection('dateRendezVous');
+  final CollectionReference stat =
+      FirebaseFirestore.instance.collection('statistique');
 
   FirebaseAuth auth = FirebaseAuth.instance;
 
@@ -29,6 +31,7 @@ class AdminMedcinData {
       'demande en cours': false,
       'donner': false,
       'nombre de don': 0,
+      'date don': null,
     });
   }
 
@@ -55,7 +58,7 @@ class AdminMedcinData {
   }
 
   Future createDateRendezVous(
-      String dateHeure, nom, prenom, sexe, gs, uid) async {
+      String dateHeure, nom, prenom, sexe, gs, uid, date) async {
     return await tabDate.doc(uid).set({
       'date don': dateHeure,
       'nom&prénomDonneur': nom + ' ' + prenom,
@@ -63,6 +66,7 @@ class AdminMedcinData {
       'groupe sanguin': gs,
       'uid': uid,
       'confirmed': false,
+      'date': date,
     });
   }
 
@@ -101,12 +105,24 @@ class AdminMedcinData {
     });
   }
 
+  Future dateDon(String date, uid) async {
+    await users.doc(uid).update({
+      'date don': date,
+    });
+  }
+
   Future accepted(uid) async {
     return await forms.doc(uid).update({'accepter': true});
   }
 
   Future effacerRendez(uid) async {
     return await forms.doc(uid).delete();
+  }
+
+  Future updateStat(prop, value) async {
+    return await stat.doc('stat').update({
+      prop: FieldValue.increment(value),
+    });
   }
 
   Stream<DocumentSnapshot> get job =>
@@ -117,4 +133,6 @@ class AdminMedcinData {
   }
 
   Stream<QuerySnapshot> get date => tabDate.snapshots();
+
+  Stream<DocumentSnapshot> get statis => stat.doc('stat').snapshots();
 }

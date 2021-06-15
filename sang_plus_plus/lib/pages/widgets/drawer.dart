@@ -108,6 +108,12 @@ class MyDrawer extends StatelessWidget {
             value: UserData().userinfo,
             builder: (context, child) {
               final userInf = Provider.of<DocumentSnapshot>(context);
+              DateTime date;
+              if (userInf['date don'] != null) {
+                date = DateTime.parse(userInf['date don']);
+              }
+              print(DateTime.now());
+
               return Drawer(
                 child: ListView(
                   children: [
@@ -147,50 +153,41 @@ class MyDrawer extends StatelessWidget {
                             Navigator.pushNamed(context, '/contacte');
                           },
                         ),
-                        StreamBuilder(
-                          stream: FirebaseFirestore.instance
-                              .collection('notification')
-                              .doc(auth.currentUser.uid)
-                              .snapshots(),
-                          builder: (context, snapshot) {
-                            if (!snapshot.hasData) {
-                              return Text('loading data please wait....');
+                        ListTile(
+                          leading: Icon(
+                            Icons.access_time_outlined,
+                            color: Colors.teal,
+                          ),
+                          title: userInf['date don'] != null &&
+                                  date.isAfter(DateTime.now()
+                                      .add(Duration(hours: 1, minutes: 1)))
+                              ? Text(
+                                  'votre rendez-vous est fixé\nle ${userInf['date don']} heure',
+                                  style: TextStyle(
+                                      color: Colors.red,
+                                      fontWeight: FontWeight.bold),
+                                )
+                              : Text('Prendre rendez-vous',
+                                  style: TextStyle(
+                                      fontSize: 16.0,
+                                      fontFamily:
+                                          'PlayfairDisplay-Regular.ttf')),
+                          onTap: () {
+                            if (userInf['date don'] != null &&
+                                date.isAfter(DateTime.now()
+                                    .add(Duration(hours: 1, minutes: 1)))) {
+                            } else if (!userInf['demande en cours']) {
+                              Navigator.pushNamed(context, '/rendez');
                             } else {
-                              var document = snapshot.data;
-                              return ListTile(
-                                leading: Icon(
-                                  Icons.access_time_outlined,
-                                  color: Colors.teal,
-                                ),
-                                title: document['date&heure'] == null
-                                    ? Text('Prendre rendez-vous',
-                                        style: TextStyle(
-                                            fontSize: 16.0,
-                                            fontFamily:
-                                                'PlayfairDisplay-Regular.ttf'))
-                                    : Text(
-                                        'votre rendez-vous est fixé\nle ${document['date&heure']}',
-                                        style: TextStyle(
-                                            color: Colors.red,
-                                            fontWeight: FontWeight.bold),
-                                      ),
-                                onTap: () {
-                                  if (document['date&heure'] != null) {
-                                  } else if (!userInf['demande en cours']) {
-                                    Navigator.pushNamed(context, '/rendez');
-                                  } else {
-                                    return showDialog(
-                                        context: context,
-                                        builder: (BuildContext context) {
-                                          return AlertDialog(
-                                            title: Text(''),
-                                            content: Text(
-                                                'votre demande est en cours'),
-                                          );
-                                        });
-                                  }
-                                },
-                              );
+                              return showDialog(
+                                  context: context,
+                                  builder: (BuildContext context) {
+                                    return AlertDialog(
+                                      title: Text(''),
+                                      content:
+                                          Text('votre demande est en cours'),
+                                    );
+                                  });
                             }
                           },
                         ),

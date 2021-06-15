@@ -8,6 +8,8 @@ class GestionRendezVous extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final rendez = Provider.of<QuerySnapshot>(context);
+    DateTime dateTime = DateTime.now();
+    print(dateTime);
     return Scaffold(
         backgroundColor: Colors.grey[200],
         appBar: AppBar(

@@ -5,7 +5,12 @@ import 'package:sang_plus_plus_admin/services/database.dart';
 
 import 'confirm_perso.dart';
 
-class ConfirmerRendezVous extends StatelessWidget {
+class ConfirmerRendezVous extends StatefulWidget {
+  @override
+  _ConfirmerRendezVousState createState() => _ConfirmerRendezVousState();
+}
+
+class _ConfirmerRendezVousState extends State<ConfirmerRendezVous> {
   @override
   Widget build(BuildContext context) {
     return StreamProvider<QuerySnapshot>.value(
@@ -18,10 +23,16 @@ class ConfirmerRendezVous extends StatelessWidget {
             '${dateTime.month}/${dateTime.day}/${dateTime.year} à ${dateTime.hour}:${dateTime.minute} ';
         final appointmentInfo = Provider.of<QuerySnapshot>(context);
         List rendezNonConfirmer = [];
+
         appointmentInfo.docs.forEach((element) {
-          element['confirmed'] == false
-              ? rendezNonConfirmer.add(element)
-              : print('no');
+          DateTime time = DateTime.parse(element['date'].toString());
+          if (!element['confirmed']) {
+            rendezNonConfirmer.add(element);
+          }
+          if (time.isBefore(dateTime.add(Duration(hours: 1, minutes: 1)))) {
+            rendezNonConfirmer.remove(element);
+            AdminMedcinData().reUpdateNotif(element['uid']);
+          }
         });
 
         return rendezNonConfirmer.isEmpty
