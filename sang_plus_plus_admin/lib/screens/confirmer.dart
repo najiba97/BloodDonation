@@ -37,6 +37,7 @@ class _ConfirmerRendezVousState extends State<ConfirmerRendezVous> {
 
         return rendezNonConfirmer.isEmpty
             ? Scaffold(
+                backgroundColor: Colors.grey[200],
                 appBar: AppBar(
                   centerTitle: true,
                   leading: IconButton(
@@ -63,6 +64,7 @@ class _ConfirmerRendezVousState extends State<ConfirmerRendezVous> {
                 ),
               )
             : Scaffold(
+                backgroundColor: Colors.grey[200],
                 appBar: AppBar(
                   centerTitle: true,
                   leading: IconButton(

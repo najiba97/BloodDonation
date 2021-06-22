@@ -1,5 +1,5 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.plusplus.don">
+    package="com.sang_plus_plus.pfe">
    <application
         android:label="sang_plus_plus"
         android:icon="@mipmap/ic_launcher">

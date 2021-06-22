@@ -226,7 +226,7 @@ class _MenuState extends State<Menu> {
                                               height: 15,
                                             ),
                                             Text(
-                                              'pourcentage de donneurs par sex',
+                                              'pourcentage de donneurs par sexe',
                                               style: TextStyle(
                                                   color: Colors.grey[700],
                                                   fontWeight: FontWeight.w300,
@@ -255,7 +255,8 @@ class _MenuState extends State<Menu> {
                                                                         document[
                                                                             'nombreTotale'] *
                                                                         100)
-                                                                    .toString() +
+                                                                    .toStringAsFixed(
+                                                                        1) +
                                                                 '%',
                                                             style: TextStyle(
                                                                 fontSize: 20,
@@ -290,7 +291,8 @@ class _MenuState extends State<Menu> {
                                                                         document[
                                                                             'nombreTotale'] *
                                                                         100)
-                                                                    .toString() +
+                                                                    .toStringAsFixed(
+                                                                        1) +
                                                                 '%',
                                                             style: TextStyle(
                                                                 fontSize: 20,

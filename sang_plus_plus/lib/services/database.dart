@@ -13,6 +13,8 @@ class UserData {
       FirebaseFirestore.instance.collection('notification');
   final CollectionReference tabDate =
       FirebaseFirestore.instance.collection('dateRendezVous');
+  final CollectionReference event =
+      FirebaseFirestore.instance.collection('événement');
 
   FirebaseAuth auth = FirebaseAuth.instance;
 
@@ -83,7 +85,6 @@ class UserData {
     });
   }
 
-   
   Future demandeEnvoyer() async {
     return await users.doc(auth.currentUser.uid).update({
       'demande en cours': true,
@@ -110,4 +111,6 @@ class UserData {
 
   Stream<DocumentSnapshot> get userinfo =>
       users.doc(auth.currentUser.uid).snapshots();
+
+  Stream<QuerySnapshot> get events => event.snapshots();
 }

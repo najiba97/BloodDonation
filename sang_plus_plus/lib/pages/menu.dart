@@ -37,66 +37,135 @@ class _MenuState extends State<Menu> {
     final user = Provider.of<User>(context);
     return disconnect
         ? CircularLoad()
-        : Scaffold(
-            drawer: MyDrawer(),
-            appBar: AppBar(
-                centerTitle: true,
-                toolbarHeight: 150,
-                title: Padding(
-                  padding: const EdgeInsets.only(top: 80),
-                  child: Text(
-                    'Sang++',
-                    style: TextStyle(
-                        color: Colors.teal[400],
-                        fontSize: 30,
-                        fontWeight: FontWeight.w600),
+        : StreamProvider<QuerySnapshot>.value(
+            initialData: null,
+            value: UserData().events,
+            builder: (context, child) {
+              List events = [];
+              final event = Provider.of<QuerySnapshot>(context);
+              event.docs.forEach((element) {
+                DateTime dateTime = DateTime.parse(element['date']);
+                if (dateTime.isAfter(DateTime.now())) {
+                  events.add(element);
+                }
+              });
+              print(events.length);
+
+              return Scaffold(
+                backgroundColor: Colors.grey[200],
+                drawer: MyDrawer(),
+                appBar: AppBar(
+                    centerTitle: true,
+                    toolbarHeight: 130,
+                    title: Padding(
+                      padding: const EdgeInsets.only(top: 80),
+                      child: Text(
+                        'Sang ++',
+                        style: TextStyle(
+                            color: Colors.teal[400],
+                            fontSize: 30,
+                            fontWeight: FontWeight.w600),
+                      ),
+                    ),
+                    backgroundColor: Colors.grey[100],
+                    elevation: 0,
+                    iconTheme: IconThemeData(color: Colors.teal[400]),
+                    actions: [
+                      IconButton(
+                        onPressed: user != null
+                            ? () {
+                                setState(() {
+                                  disconnect = true;
+                                });
+                                _auth.signOut();
+                              }
+                            : () {
+                                Navigator.pushNamed(context, '/authentif');
+                              },
+                        icon: user != null
+                            ? Icon(Icons.logout)
+                            : Icon(Icons.login),
+                      )
+                    ]),
+                body: Center(
+                  child: ListView(
+                    children: [
+                      SizedBox(
+                        height: 20,
+                      ),
+                      MyCaroussel(),
+                      SizedBox(
+                        height: 20,
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 28, vertical: 18),
+                        child: Text(
+                          'Événement',
+                          style: TextStyle(
+                              color: Colors.teal[400],
+                              fontSize: 24,
+                              fontWeight: FontWeight.w500),
+                        ),
+                      ),
+                      SizedBox(
+                        height: 20,
+                      ),
+                      event.docs.isEmpty
+                          ? Center(
+                              child: Text('aucun événement pour le moment'))
+                          : ListView.builder(
+                              shrinkWrap: true,
+                              itemCount: event.size,
+                              itemBuilder: (context, index) {
+                                return Container(
+                                  height: 150,
+                                  child: Card(
+                                    margin:
+                                        EdgeInsets.fromLTRB(20.0, 6.0, 20.0, 0),
+                                    child: Padding(
+                                      padding: const EdgeInsets.symmetric(
+                                          horizontal: 20, vertical: 20),
+                                      child: ListTile(
+                                        onTap: () {},
+                                        leading: Container(
+                                          width: 100,
+                                          height: 100,
+                                          child: ClipRect(
+                                              child: event.docs[index]
+                                                          ['image'] ==
+                                                      ''
+                                                  ? Image.asset(
+                                                      'assets/picture.png')
+                                                  : Image.network(
+                                                      event.docs[index]
+                                                          ['image'],
+                                                      fit: BoxFit.cover,
+                                                    )),
+                                        ),
+                                        title: Text(
+                                            'Evénement don du sang à :\n${event.docs[index]['lieux']}'),
+                                        subtitle:
+                                            Text(event.docs[index]['date']),
+                                        trailing: null,
+                                      ),
+                                    ),
+                                  ),
+                                );
+                              }),
+                    ],
                   ),
                 ),
-                backgroundColor: Colors.grey[100],
-                elevation: 0,
-                iconTheme: IconThemeData(color: Colors.teal[400]),
-                actions: [
-                  IconButton(
-                    onPressed: user != null
-                        ? () {
-                            setState(() {
-                              disconnect = true;
-                            });
-                            _auth.signOut();
-                          }
-                        : () {
-                            Navigator.pushNamed(context, '/authentif');
-                          },
-                    icon: user != null ? Icon(Icons.logout) : Icon(Icons.login),
-                  )
-                ]),
-            body: Center(
-              child: ListView(
-                children: [
-                  Container(
-                    height: MediaQuery.of(context).size.height,
-                    width: MediaQuery.of(context).size.width,
-                    color: Colors.grey[200],
-                    child: Column(
-                      children: [
-                        SizedBox(
-                          height: 20,
-                        ),
-                        MyCaroussel(),
-                      ],
-                    ),
+                bottomNavigationBar: Theme(
+                  data: Theme.of(context).copyWith(
+                    canvasColor: Colors.grey[100],
                   ),
-                ],
-              ),
-            ),
-            bottomNavigationBar: Theme(
-              data: Theme.of(context).copyWith(
-                canvasColor: Colors.grey[100],
-              ),
-              child: MyBottom(
-                indexPage: indexPage,
-              ),
-            ),
+                  child: MyBottom(
+                    indexPage: indexPage,
+                  ),
+                ),
+              );
+            },
           );
   }
 }

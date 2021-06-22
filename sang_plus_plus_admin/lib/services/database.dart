@@ -14,6 +14,8 @@ class AdminMedcinData {
       FirebaseFirestore.instance.collection('dateRendezVous');
   final CollectionReference stat =
       FirebaseFirestore.instance.collection('statistique');
+  final CollectionReference event =
+      FirebaseFirestore.instance.collection('événement');
 
   FirebaseAuth auth = FirebaseAuth.instance;
 
@@ -122,6 +124,14 @@ class AdminMedcinData {
   Future updateStat(prop, value) async {
     return await stat.doc('stat').update({
       prop: FieldValue.increment(value),
+    });
+  }
+
+  Future createEvent(String lieux, date, image) async {
+    return await event.doc().set({
+      'lieux': lieux,
+      'date': date,
+      'image': image,
     });
   }
 

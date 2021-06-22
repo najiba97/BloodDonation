@@ -183,7 +183,7 @@ class _ProfileState extends State<Profile> {
       setState(() {
         imgUrl = downloadUrl;
       });
-      print(imgUrl);
+       
     } else {
       print('no path recived');
     }

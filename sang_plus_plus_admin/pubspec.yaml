@@ -36,7 +36,8 @@ dependencies:
   fl_chart:
   carousel_slider:
   provider:
-
+  table_calendar:
+  image_picker:
 dev_dependencies:
   flutter_test:
     sdk: flutter

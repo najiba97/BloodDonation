@@ -96,6 +96,7 @@ class _ConfirmPersoState extends State<ConfirmPerso> {
                           erreurOne = 'le champ confirmer sexe est obligatoire';
                         });
                       } else {
+                        Navigator.pop(context);
                         adminMedcinData.confirmGsSex(
                             sexe, gs, widget.donorsInfo[widget.index]['uid']);
                         adminMedcinData.reUpdateNotif(
@@ -103,7 +104,6 @@ class _ConfirmPersoState extends State<ConfirmPerso> {
                         adminMedcinData.updateStat('nombreTotale', 1);
                         adminMedcinData.updateStat(gs, 1);
                         adminMedcinData.updateStat(sexe, 1);
-                        Navigator.pop(context);
 
                         showDialog(
                             context: context,

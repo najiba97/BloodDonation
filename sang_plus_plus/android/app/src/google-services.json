@@ -1,33 +1,33 @@
 {
   "project_info": {
-    "project_number": "872889575116",
-    "project_id": "sangplusplusv2",
-    "storage_bucket": "sangplusplusv2.appspot.com"
+    "project_number": "493310145757",
+    "project_id": "sangpluspluspfe",
+    "storage_bucket": "sangpluspluspfe.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:872889575116:android:95e8d87d889b1799e1c469",
+        "mobilesdk_app_id": "1:493310145757:android:5ff53fa4b092b62b58d734",
         "android_client_info": {
-          "package_name": "com.plusplus.don"
+          "package_name": "com.sang_plus_plus.pfe"
         }
       },
       "oauth_client": [
         {
-          "client_id": "872889575116-i03kfi5okvutpqg87ac8e97fl4f44tl3.apps.googleusercontent.com",
+          "client_id": "493310145757-h204c82f5gc1907aj4f6kfuhoh8uvsdr.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyBRQIsgub410ItSQbl0oUbTN7Mhd6DOqc4"
+          "current_key": "AIzaSyBZ8AE6SLq6_-UJac6nTQvTfzZCwh22Sws"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "872889575116-i03kfi5okvutpqg87ac8e97fl4f44tl3.apps.googleusercontent.com",
+              "client_id": "493310145757-h204c82f5gc1907aj4f6kfuhoh8uvsdr.apps.googleusercontent.com",
               "client_type": 3
             }
           ]
