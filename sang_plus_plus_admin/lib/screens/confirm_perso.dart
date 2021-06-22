@@ -59,7 +59,10 @@ class _ConfirmPersoState extends State<ConfirmPerso> {
                       );
                     }).toList(),
                   ),
-                  Text(erreur),
+                  Text(
+                    erreur,
+                    style: TextStyle(color: Colors.red),
+                  ),
                   SizedBox(
                     height: 15,
                   ),
