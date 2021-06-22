@@ -92,11 +92,12 @@ class _ConfirmPersoState extends State<ConfirmPerso> {
                       if (gs == '') {
                         setState(() {
                           erreur =
-                              'le champ confirmer groupe sanguin est obligatoire';
+                              'le champ confirmer groupe sanguin est obligatoire ';
                         });
                       } else if (sexe == '') {
                         setState(() {
-                          erreurOne = 'le champ confirmer sexe est obligatoire';
+                          erreurOne =
+                              'le champ confirmer sexe est obligatoire ';
                         });
                       } else {
                         Navigator.pop(context);
