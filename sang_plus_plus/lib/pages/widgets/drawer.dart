@@ -8,7 +8,7 @@ class MyDrawer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final user = Provider.of<User>(context);
-    FirebaseAuth auth = FirebaseAuth.instance;
+     
 
     return user == null
         ? Drawer(

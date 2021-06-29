@@ -10,6 +10,7 @@ import 'package:sang_plus_plus_admin/screens/confirmer.dart';
 import 'package:sang_plus_plus_admin/screens/create_event.dart';
 
 import 'package:sang_plus_plus_admin/screens/cree_compte/cree_compte.dart';
+import 'package:sang_plus_plus_admin/screens/gerer_useres.dart';
 import 'package:sang_plus_plus_admin/screens/gestion_rendezvs.dart';
 import 'package:sang_plus_plus_admin/screens/loading.dart';
 import 'package:sang_plus_plus_admin/screens/menu/menu.dart';
@@ -48,6 +49,7 @@ class MyApp extends StatelessWidget {
           '/rendez_perso': (context) => RendezPerso(),
           '/accept': (context) => Accept(),
           '/confirm_rendezvous': (context) => ConfirmerRendezVous(),
+          '/gerer_utilisateur': (context) => GererUser(),
         },
       ),
     );

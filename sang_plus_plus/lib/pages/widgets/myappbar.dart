@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:sang_plus_plus/services/database.dart';
 
+// ignore: must_be_immutable
 class MyAppBar extends StatelessWidget implements PreferredSizeWidget {
   Size get preferredSize => new Size.fromHeight(AppBar().preferredSize.height);
   UserData userData = UserData();

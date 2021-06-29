@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:sang_plus_plus_admin/screens/gerer_useres.dart';
 
 import 'package:sang_plus_plus_admin/services/auth_service.dart';
 import 'package:sang_plus_plus_admin/services/database.dart';
@@ -22,7 +23,6 @@ class _MenuState extends State<Menu> {
 
   @override
   Widget build(BuildContext context) {
-    print(date.toString());
     List<Widget> medecinDrawer = [
       ListTile(
         leading: Icon(Icons.settings),
@@ -49,7 +49,19 @@ class _MenuState extends State<Menu> {
       ),
     ];
 
-    List<Widget> adminDrawer = [];
+    List<Widget> adminDrawer = [
+      StreamProvider<QuerySnapshot>.value(
+        value: AdminMedcinData().infouser,
+        initialData: null,
+        child: ListTile(
+          leading: Icon(Icons.settings),
+          title: Text('gérer utilisateur'),
+          onTap: () {
+            Navigator.pushNamed(context, '/gerer_utilisateur');
+          },
+        ),
+      ),
+    ];
     return disconect
         ? CircularLoad()
         : StreamProvider<DocumentSnapshot>.value(
@@ -125,7 +137,7 @@ class _MenuState extends State<Menu> {
                             Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               mainAxisAlignment: MainAxisAlignment.end,
-                              children: identif['identif'] == 'medecin'
+                              children: identif['identif'] == 'médecin'
                                   ? medecinDrawer
                                   : adminDrawer,
                             ),

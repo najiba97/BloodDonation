@@ -9,7 +9,7 @@ class CreeCompte extends StatefulWidget {
 class _CreeCompteState extends State<CreeCompte> {
   final formKey = GlobalKey<FormState>();
 
-  final List identif = ['administrateur', 'medecin'];
+  final List identif = ['administrateur', 'médecin'];
   AuthService authService = AuthService();
   bool notIdentified = true;
 

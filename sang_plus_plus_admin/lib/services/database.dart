@@ -4,8 +4,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 class AdminMedcinData {
   final String uid;
   final FirebaseAuth _auth = FirebaseAuth.instance;
-  final CollectionReference users =
-      FirebaseFirestore.instance.collection('users');
+
   final CollectionReference forms =
       FirebaseFirestore.instance.collection('forms');
   final CollectionReference notif =
@@ -16,6 +15,8 @@ class AdminMedcinData {
       FirebaseFirestore.instance.collection('statistique');
   final CollectionReference event =
       FirebaseFirestore.instance.collection('événement');
+  final CollectionReference users =
+      FirebaseFirestore.instance.collection('users');
 
   FirebaseAuth auth = FirebaseAuth.instance;
 
@@ -27,10 +28,9 @@ class AdminMedcinData {
       'prénom': prenom,
       'téléphone': null,
       'email': email,
-      'mot de passe': password,
+      'uid': auth.currentUser.uid,
       'photo de profile': null,
       'identif': identif,
-      'demande en cours': false,
       'donner': false,
       'nombre de don': 0,
       'date don': null,
@@ -56,6 +56,7 @@ class AdminMedcinData {
       'groupe sanguin': gs,
       'accepter': false,
       'uid': auth.currentUser.uid,
+      'demande en cours': false,
     });
   }
 
@@ -133,6 +134,16 @@ class AdminMedcinData {
       'date': date,
       'image': image,
     });
+  }
+
+  Future changeIdentif(String uid, identif) async {
+    return await users.doc(uid).update({
+      'identif': identif,
+    });
+  }
+
+  Stream<QuerySnapshot> get infouser {
+    return users.snapshots();
   }
 
   Stream<DocumentSnapshot> get job =>

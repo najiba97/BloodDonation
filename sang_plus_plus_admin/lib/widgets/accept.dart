@@ -43,7 +43,7 @@ class _AcceptState extends State<Accept> {
     '16:30 PM',
     '17:00 PM',
     '17:30 PM',
-    '21:06 PM',
+    '18:00 PM',
   ];
   String valueChoose;
   String time = '';

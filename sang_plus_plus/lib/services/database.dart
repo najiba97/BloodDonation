@@ -27,13 +27,13 @@ class UserData {
       'prénom': prenom,
       'téléphone': telephone,
       'email': email,
-      'mot de passe': password,
+      'uid': auth.currentUser.uid,
       'photo de profile': null,
       'identif': 'utilisateur',
-      'demande en cours': false,
       'donner': false,
       'nombre de don': 0,
       'date don': null,
+      'demande en cours': false,
     });
   }
 
