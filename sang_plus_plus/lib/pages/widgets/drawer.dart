@@ -8,7 +8,6 @@ class MyDrawer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final user = Provider.of<User>(context);
-     
 
     return user == null
         ? Drawer(
@@ -66,7 +65,7 @@ class MyDrawer extends StatelessWidget {
                               return AlertDialog(
                                 title: Text('Prendre rendez-vous ?'),
                                 content: Text(
-                                    'pour prendre un rendez-vous il fauts etre connecte , avez-vous un compte?'),
+                                    'pour prendre un rendez-vous il fauts étre connecte , avez-vous un compte?'),
                                 actions: [
                                   TextButton(
                                       onPressed: () {
@@ -162,7 +161,7 @@ class MyDrawer extends StatelessWidget {
                                   date.isAfter(DateTime.now()
                                       .add(Duration(hours: 1, minutes: 1)))
                               ? Text(
-                                  'votre rendez-vous est fixé\nle ${userInf['date don']} heure',
+                                  'votre rendez-vous est fixé\nle ${date.day}/${date.month}/${date.year} à ${date.hour}:${date.minute}',
                                   style: TextStyle(
                                       color: Colors.red,
                                       fontWeight: FontWeight.bold),
@@ -176,7 +175,7 @@ class MyDrawer extends StatelessWidget {
                             if (userInf['date don'] != null &&
                                 date.isAfter(DateTime.now()
                                     .add(Duration(hours: 1, minutes: 1)))) {
-                            } else if (!userInf['demande en cours']) {
+                            } else if (userInf['demande en cours'] == false) {
                               Navigator.pushNamed(context, '/rendez');
                             } else {
                               return showDialog(

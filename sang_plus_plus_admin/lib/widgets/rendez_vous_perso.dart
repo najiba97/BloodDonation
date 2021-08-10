@@ -110,8 +110,6 @@ class RendezPerso extends StatelessWidget {
                 children: [
                   TextButton(
                       onPressed: () async {
-                        await adminMedcinData
-                            .accepted(rendez.docs[index]['uid']);
                         Navigator.of(context).push(MaterialPageRoute(
                             builder: (context) => Accept(
                                   index: index,

@@ -35,7 +35,7 @@ class _GererUserState extends State<GererUser> {
             appBar: AppBar(
               centerTitle: true,
               leading: IconButton(
-                onPressed: () => Navigator.pop(context),
+                onPressed: () => Navigator.pushNamed(context, '/menu'),
                 icon: Icon(Icons.keyboard_return_outlined),
                 color: Colors.blue[900],
               ),

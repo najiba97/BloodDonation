@@ -224,7 +224,7 @@ class _CreateCountState extends State<CreateCount> {
                             validator: (String value) {
                               String errors;
                               if (value.isEmpty) {
-                                errors = 'mots de passe ne peut pas etre vide';
+                                errors = 'mots de passe ne peut pas étre vide';
                               } else if (_password != _confirmPassword) {
                                 errors = 'mot de passe non identique';
                               }

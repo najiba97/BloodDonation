@@ -51,11 +51,11 @@ class GMedecin extends StatelessWidget {
                                         width: 30,
                                       ),
                                       TextButton(
-                                        child: Text('médecin'),
+                                        child: Text('utilisateur'),
                                         onPressed: () async {
                                           await adminMedcinData.changeIdentif(
                                               myMedecins[index]['uid'],
-                                              'médecin');
+                                              'utilisateur');
 
                                           Navigator.pushNamed(
                                               context, '/gerer_utilisateur');
@@ -86,7 +86,6 @@ class GMedecin extends StatelessWidget {
                         title: Text(
                             ' ${myMedecins[index]['nom']} ${myMedecins[index]['prénom']}'),
                         subtitle: Text(myMedecins[index]['identif']),
-                        
                       ),
                     ),
                   );

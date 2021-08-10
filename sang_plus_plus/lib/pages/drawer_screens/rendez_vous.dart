@@ -44,7 +44,7 @@ class _RendezState extends State<Rendez> {
               actions: [
                 IconButton(
                   onPressed: () {
-                    Navigator.pushNamed(context, '/menu');
+                    Navigator.pushNamed(context, '/menu ');
                   },
                   icon: Icon(Icons.home),
                   splashColor: Colors.green,
@@ -132,6 +132,7 @@ class _RendezState extends State<Rendez> {
                             height: 15,
                           ),
                           TextFormField(
+                              keyboardType: TextInputType.phone,
                               onChanged: (value) {
                                 setState(() {
                                   _tel = value;
@@ -176,16 +177,14 @@ class _RendezState extends State<Rendez> {
 
                               date = await showDatePicker(
                                   context: context,
-                                  initialDate: DateTime(1997),
+                                  initialDate: DateTime(dateTime.year - 18),
                                   firstDate: DateTime(dateTime.year - 69),
                                   lastDate: DateTime(dateTime.year - 18));
                               if (date != null) {
                                 dateCtl.text = DateFormat.yMd().format(date);
                               }
 
-                              setState(() {
-                                _date = dateCtl.text;
-                              });
+                              _date = dateCtl.text;
                             },
                           ),
                           SizedBox(
@@ -216,7 +215,6 @@ class _RendezState extends State<Rendez> {
                               setRadioValue(value);
                               setState(() {
                                 _sexe = 'homme';
-                                print(_sexe);
                               });
                             },
                           ),
@@ -243,9 +241,6 @@ class _RendezState extends State<Rendez> {
                       await UserData(uid: _uid).prendreRendezVous(
                           _nom, _prenom, _email, _tel, _date, _sexe, _gs);
 
-                      setState(() {
-                        load = false;
-                      });
                       await UserData().demandeEnvoyer();
 
                       Navigator.pop(context);

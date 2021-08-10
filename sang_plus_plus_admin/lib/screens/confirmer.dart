@@ -17,16 +17,15 @@ class _ConfirmerRendezVousState extends State<ConfirmerRendezVous> {
       initialData: null,
       value: AdminMedcinData().date,
       builder: (context, child) {
-        DateTime dateTime = DateTime.now();
+        DateTime dateTime = DateTime.now(), time;
 
-        String date =
-            '${dateTime.month}/${dateTime.day}/${dateTime.year} à ${dateTime.hour}:${dateTime.minute} ';
         final appointmentInfo = Provider.of<QuerySnapshot>(context);
+
         List rendezNonConfirmer = [];
 
         appointmentInfo.docs.forEach((element) {
-          DateTime time = DateTime.parse(element['date'].toString());
-          if (!element['confirmed']) {
+          time = DateTime.parse(element['date'].toString());
+          if (element['confirmed'] == false) {
             rendezNonConfirmer.add(element);
           }
           if (time.isBefore(dateTime.add(Duration(hours: 1, minutes: 1)))) {
@@ -89,6 +88,8 @@ class _ConfirmerRendezVousState extends State<ConfirmerRendezVous> {
                 body: ListView.builder(
                     itemCount: rendezNonConfirmer.length,
                     itemBuilder: (context, index) {
+                      DateTime date =
+                          DateTime.parse(rendezNonConfirmer[index]['date']);
                       return Padding(
                         padding: const EdgeInsets.only(top: 8.0),
                         child: Card(
@@ -108,8 +109,8 @@ class _ConfirmerRendezVousState extends State<ConfirmerRendezVous> {
                             ),
                             title: Text(
                                 ' ${rendezNonConfirmer[index]['nom&prénomDonneur']}'),
-                            subtitle:
-                                Text(rendezNonConfirmer[index]['date don']),
+                            subtitle: Text(
+                                '${date.day}/${date.month}/${date.year} à ${date.hour}:${date.minute}'),
                             trailing: IconButton(
                               icon: Icon(Icons.delete),
                               onPressed: () {

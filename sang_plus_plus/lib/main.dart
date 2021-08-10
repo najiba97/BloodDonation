@@ -16,6 +16,7 @@ import 'package:sang_plus_plus/pages/quiz/quiz_femme.dart';
 import 'package:sang_plus_plus/pages/quiz/quiz_homme.dart';
 import 'package:sang_plus_plus/pages/drawer_screens/rendez_vous.dart';
 import 'package:sang_plus_plus/pages/reset_pass.dart';
+import 'package:sang_plus_plus/services/database.dart';
 import 'services/auth_service.dart';
 
 void main() async {
@@ -30,17 +31,9 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // stream sur l'objet User (firebase)
-    return MultiProvider(
-      providers: [
-        StreamProvider<User>.value(
-          initialData: null,
-          value: AuthServices().authStateChanges,
-        ),
-      ],
-
-      // le cible de stream (l'etat d'utilisateur null ou connecté)
-
-      // Material App c'est la class main qui contiens tous leas autre class
+    return StreamProvider<User>.value(
+      value: AuthServices().authStateChanges,
+      initialData: null,
       child: MaterialApp(
           debugShowCheckedModeBanner: false,
           //theme va vous initialiser l'apparence d'application
@@ -63,5 +56,9 @@ class MyApp extends StatelessWidget {
             '/resetpass': (context) => ResetPassword(),
           }),
     );
+
+    // le cible de stream (l'etat d'utilisateur null ou connecté)
+
+    // Material App c'est la class main qui contiens tous leas autre class
   }
 }

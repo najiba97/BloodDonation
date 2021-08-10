@@ -50,16 +50,12 @@ class _MenuState extends State<Menu> {
     ];
 
     List<Widget> adminDrawer = [
-      StreamProvider<QuerySnapshot>.value(
-        value: AdminMedcinData().infouser,
-        initialData: null,
-        child: ListTile(
-          leading: Icon(Icons.settings),
-          title: Text('gérer utilisateur'),
-          onTap: () {
-            Navigator.pushNamed(context, '/gerer_utilisateur');
-          },
-        ),
+      ListTile(
+        leading: Icon(Icons.settings),
+        title: Text('gérer utilisateur'),
+        onTap: () {
+          Navigator.pushNamed(context, '/gerer_utilisateur');
+        },
       ),
     ];
     return disconect
@@ -170,7 +166,7 @@ class _MenuState extends State<Menu> {
                                   .snapshots(),
                               builder: (context, snapshot) {
                                 var document = snapshot.data;
-                                if (!snapshot.hasData) {
+                                if (snapshot.hasData == false) {
                                   return Text('loading data please wait....');
                                 } else {
                                   return Column(

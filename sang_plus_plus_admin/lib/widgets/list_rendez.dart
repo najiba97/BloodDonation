@@ -35,8 +35,9 @@ class _ListRendezState extends State<ListRendez> {
                       AssetImage('assets/images/blood-donation.png'),
                 ),
                 title: Text(
-                    ' ${rendez.docs[index]['nom']} ${rendez.docs[index]['prénom']}'),
-                subtitle: Text(rendez.docs[index]['groupe sanguin']),
+                    '${rendez.docs[index]['nom']} ${rendez.docs[index]['prénom']} '),
+                subtitle: Text(
+                    'groupe sanguin : ${rendez.docs[index]['groupe sanguin']}'),
               ),
             ),
           );

@@ -31,7 +31,7 @@ class WeeklyChart extends StatelessWidget {
                     BarChartRodData(
                         y: value,
                         width: 15,
-                        colors: i == 4 ? [Colors.indigo[900]] : null)
+                        colors: i % 2 == 0 ? [Colors.indigo[900]] : null)
                   ])));
           return barChartGroup;
         }

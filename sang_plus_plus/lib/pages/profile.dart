@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 
 import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
+import 'package:sang_plus_plus/pages/widgets/cirular_load.dart';
 import 'package:sang_plus_plus/pages/widgets/myappbar.dart';
 import 'package:sang_plus_plus/services/bottom_navigator.dart';
 import 'package:sang_plus_plus/services/database.dart';
@@ -24,6 +25,7 @@ class _ProfileState extends State<Profile> {
   final int indexPage = 3;
   String imgUrl;
   UserData userData = UserData();
+  bool download = false;
 
   FirebaseAuth _auth = FirebaseAuth.instance;
 
@@ -31,107 +33,113 @@ class _ProfileState extends State<Profile> {
   Widget build(BuildContext context) {
     var _uid = _auth.currentUser.uid;
 
-    return StreamProvider<DocumentSnapshot>.value(
-      value: UserData().notification,
-      initialData: null,
-      child: Scaffold(
-          backgroundColor: Colors.grey[100],
-          appBar: MyAppBar(),
-          body: StreamBuilder(
-            stream: FirebaseFirestore.instance
-                .collection('users')
-                .doc(_uid)
-                .snapshots(),
-            builder: (context, snapshot) {
-              if (snapshot.hasData == false) {
-                return Text('Loading data .. please wait');
-              } else {
-                var document = snapshot.data;
+    return download
+        ? CircularLoad()
+        : StreamProvider<DocumentSnapshot>.value(
+            value: UserData().notification,
+            initialData: null,
+            child: Scaffold(
+                backgroundColor: Colors.grey[100],
+                appBar: MyAppBar(),
+                body: StreamBuilder(
+                  stream: FirebaseFirestore.instance
+                      .collection('users')
+                      .doc(_uid)
+                      .snapshots(),
+                  builder: (context, snapshot) {
+                    if (snapshot.hasData == false) {
+                      return Text('Loading data .. please wait');
+                    } else {
+                      var document = snapshot.data;
 
-                return ListView(children: [
-                  Column(children: [
-                    Container(
-                      height: 80,
-                      color: Colors.teal[400],
-                    ),
-                    Stack(
-                      children: [
-                        Container(
-                          height: 100,
-                          width: double.infinity,
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.vertical(
-                                bottom: Radius.circular(25)),
+                      return ListView(children: [
+                        Column(children: [
+                          Container(
+                            height: 80,
                             color: Colors.teal[400],
                           ),
-                        ),
-                        Center(
-                          child: CircleAvatar(
-                            radius: 100.0,
-                            backgroundImage: document['photo de profile'] ==
-                                    null
-                                ? AssetImage('assets/user.png')
-                                : NetworkImage(document['photo de profile']),
-                            backgroundColor: Colors.white,
-                          ),
-                        ),
-                        Positioned(
-                            right: 125,
-                            bottom: 15.0,
-                            child: InkWell(
-                              onTap: () {
-                                showModalBottomSheet(
-                                    context: context,
-                                    builder: ((builder) => bottomSheet()));
-                              },
-                              child: Icon(
-                                Icons.camera_alt,
-                                color: Colors.teal,
-                                size: 28.0,
+                          Stack(
+                            children: [
+                              Container(
+                                height: 100,
+                                width: double.infinity,
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.vertical(
+                                      bottom: Radius.circular(25)),
+                                  color: Colors.teal[400],
+                                ),
                               ),
-                            ))
-                      ],
-                    ),
-                    SizedBox(
-                      height: 50,
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.symmetric(
-                        horizontal: 50,
-                      ),
-                      child: Column(
-                        children: [
-                          TextField(
-                            onChanged: (value) {
-                              UserData(uid: _uid).updateInfo('nom', value);
-                            },
-                            decoration: InputDecoration(
-                              hintText: document['nom'],
-                            ),
-                          ),
-                          TextFormField(
-                            onChanged: (value) {
-                              UserData(uid: _uid).updateInfo('prénom', value);
-                            },
-                            decoration: InputDecoration(
-                              hintText: document['prénom'],
-                              hintStyle: TextStyle(
-                                fontSize: 16.0,
+                              Center(
+                                child: CircleAvatar(
+                                  radius: 100.0,
+                                  backgroundImage:
+                                      document['photo de profile'] == null
+                                          ? AssetImage('assets/user.png')
+                                          : NetworkImage(
+                                              document['photo de profile']),
+                                  backgroundColor: Colors.white,
+                                ),
                               ),
-                            ),
+                              Positioned(
+                                  right: 125,
+                                  bottom: 15.0,
+                                  child: InkWell(
+                                    onTap: () {
+                                      showModalBottomSheet(
+                                          context: context,
+                                          builder: ((builder) =>
+                                              bottomSheet()));
+                                    },
+                                    child: Icon(
+                                      Icons.camera_alt,
+                                      color: Colors.teal,
+                                      size: 28.0,
+                                    ),
+                                  ))
+                            ],
                           ),
-                        ],
-                      ),
-                    )
-                  ]),
-                ]);
-              }
-            },
-          ),
-          bottomNavigationBar: MyBottom(
-            indexPage: indexPage,
-          )),
-    );
+                          SizedBox(
+                            height: 50,
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.symmetric(
+                              horizontal: 50,
+                            ),
+                            child: Column(
+                              children: [
+                                TextField(
+                                  onChanged: (value) {
+                                    UserData(uid: _uid)
+                                        .updateInfo('nom', value);
+                                  },
+                                  decoration: InputDecoration(
+                                    hintText: document['nom'],
+                                  ),
+                                ),
+                                TextFormField(
+                                  onChanged: (value) {
+                                    UserData(uid: _uid)
+                                        .updateInfo('prénom', value);
+                                  },
+                                  decoration: InputDecoration(
+                                    hintText: document['prénom'],
+                                    hintStyle: TextStyle(
+                                      fontSize: 16.0,
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          )
+                        ]),
+                      ]);
+                    }
+                  },
+                ),
+                bottomNavigationBar: MyBottom(
+                  indexPage: indexPage,
+                )),
+          );
   }
 
   Widget bottomSheet() {
@@ -175,15 +183,23 @@ class _ProfileState extends State<Profile> {
     var file = File(pickedImage.path);
 
     if (pickedImage != null) {
+      setState(() {
+        download = true;
+      });
       var snapshot = await FirebaseStorage.instance
           .ref()
           .child(_auth.currentUser.uid)
           .putFile(file);
+
       var downloadUrl = await snapshot.ref.getDownloadURL();
+
       setState(() {
         imgUrl = downloadUrl;
       });
-       
+
+      setState(() {
+        download = false;
+      });
     } else {
       print('no path recived');
     }

@@ -14,7 +14,7 @@ class AdminMedcinData {
   final CollectionReference stat =
       FirebaseFirestore.instance.collection('statistique');
   final CollectionReference event =
-      FirebaseFirestore.instance.collection('événement');
+      FirebaseFirestore.instance.collection('event');
   final CollectionReference users =
       FirebaseFirestore.instance.collection('users');
 
@@ -34,6 +34,7 @@ class AdminMedcinData {
       'donner': false,
       'nombre de don': 0,
       'date don': null,
+      'demande en cours': false,
     });
   }
 
@@ -60,10 +61,8 @@ class AdminMedcinData {
     });
   }
 
-  Future createDateRendezVous(
-      String dateHeure, nom, prenom, sexe, gs, uid, date) async {
+  Future createDateRendezVous(String nom, prenom, sexe, gs, uid, date) async {
     return await tabDate.doc(uid).set({
-      'date don': dateHeure,
       'nom&prénomDonneur': nom + ' ' + prenom,
       'sexe': sexe,
       'groupe sanguin': gs,
@@ -112,10 +111,6 @@ class AdminMedcinData {
     await users.doc(uid).update({
       'date don': date,
     });
-  }
-
-  Future accepted(uid) async {
-    return await forms.doc(uid).update({'accepter': true});
   }
 
   Future effacerRendez(uid) async {

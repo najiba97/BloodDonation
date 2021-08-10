@@ -14,7 +14,7 @@ class UserData {
   final CollectionReference tabDate =
       FirebaseFirestore.instance.collection('dateRendezVous');
   final CollectionReference event =
-      FirebaseFirestore.instance.collection('événement');
+      FirebaseFirestore.instance.collection('event');
 
   FirebaseAuth auth = FirebaseAuth.instance;
 
@@ -39,7 +39,7 @@ class UserData {
 
   /* va mettre a jours la propriete photo de profile si l'utilisateur decide de mettre
   a jours sa photo de profile*/
-  Future userPic(img) async {
+  Future userPic(String img) async {
     return await users.doc(uid).update({'photo de profile': img});
   }
 

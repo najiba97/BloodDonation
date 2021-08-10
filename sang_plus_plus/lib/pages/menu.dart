@@ -45,11 +45,12 @@ class _MenuState extends State<Menu> {
               final event = Provider.of<QuerySnapshot>(context);
               event.docs.forEach((element) {
                 DateTime dateTime = DateTime.parse(element['date']);
-                if (dateTime.isAfter(DateTime.now())) {
+
+                DateTime timeNow = DateTime.now();
+                if (dateTime.isAfter(timeNow)) {
                   events.add(element);
                 }
               });
-              print(events.length);
 
               return Scaffold(
                 backgroundColor: Colors.grey[200],
@@ -116,8 +117,10 @@ class _MenuState extends State<Menu> {
                               child: Text('aucun événement pour le moment'))
                           : ListView.builder(
                               shrinkWrap: true,
-                              itemCount: event.size,
+                              itemCount: events.length,
                               itemBuilder: (context, index) {
+                                DateTime time =
+                                    DateTime.parse(events[index]['date']);
                                 return Container(
                                   height: 150,
                                   child: Card(
@@ -144,9 +147,11 @@ class _MenuState extends State<Menu> {
                                                     )),
                                         ),
                                         title: Text(
-                                            'Evénement don du sang à :\n${event.docs[index]['lieux']}'),
-                                        subtitle:
-                                            Text(event.docs[index]['date']),
+                                          'Evénement don du sang à :\n${event.docs[index]['lieux']}',
+                                          style: TextStyle(fontSize: 13),
+                                        ),
+                                        subtitle: Text(
+                                            '${time.day}/${time.month}/${time.year} à ${time.hour}:${time.minute}'),
                                         trailing: null,
                                       ),
                                     ),
