@@ -2,8 +2,6 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:sang_plus_plus_admin/screens/gerer_useres.dart';
-
 import 'package:sang_plus_plus_admin/services/auth_service.dart';
 import 'package:sang_plus_plus_admin/services/database.dart';
 import 'package:sang_plus_plus_admin/widgets/carousel.dart';
@@ -65,6 +63,7 @@ class _MenuState extends State<Menu> {
             value: AdminMedcinData().job,
             builder: (context, child) {
               final identif = Provider.of<DocumentSnapshot>(context);
+
               return identif['identif'] == 'utilisateur'
                   ? Scaffold(
                       body: Column(

@@ -157,7 +157,7 @@ class _CreateEventState extends State<CreateEvent> {
                                             ? '0${chooseHour.minute}'
                                             : '${chooseHour.minute}';
                                       }
-                                      print(minute);
+                                       
                                     });
                                   },
                                   child: heure == ''

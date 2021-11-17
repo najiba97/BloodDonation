@@ -16,7 +16,6 @@ import 'package:sang_plus_plus/pages/quiz/quiz_femme.dart';
 import 'package:sang_plus_plus/pages/quiz/quiz_homme.dart';
 import 'package:sang_plus_plus/pages/drawer_screens/rendez_vous.dart';
 import 'package:sang_plus_plus/pages/reset_pass.dart';
-import 'package:sang_plus_plus/services/database.dart';
 import 'services/auth_service.dart';
 
 void main() async {

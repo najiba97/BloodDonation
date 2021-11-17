@@ -84,15 +84,20 @@ class GMedecin extends StatelessWidget {
                                       myMedecins[index]['photo de profile']),
                         ),
                         title: Text(
-                            ' ${myMedecins[index]['nom']} ${myMedecins[index]['prénom']}'),
-                        subtitle: Text(myMedecins[index]['identif']),
+                          ' ${myMedecins[index]['nom']} ${myMedecins[index]['prénom']}',
+                        ),
+                        subtitle: Text(
+                          myMedecins[index]['identif'],
+                        ),
                       ),
                     ),
                   );
                 }),
           )
         : Scaffold(
-            body: Center(child: Text('aucun médecin')),
+            body: Center(
+              child: Text('aucun médecin'),
+            ),
           );
   }
 }

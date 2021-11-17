@@ -18,9 +18,9 @@ class _RendezState extends State<Rendez> {
   TextEditingController dateCtl = TextEditingController();
   DateTime dateTime = DateTime.now();
   int selectedRadio = 0;
-  String valueChoose;
+  String valueChoose = '';
   List listItem = ['A+', 'A-', 'B+', 'B-', 'AB+', 'AB-', 'O+', 'O-'];
-  String _email, _nom, _prenom, _tel, _sexe = 'inconnu', _gs = 'inconnu', _date;
+  String _email = '', _nom = '', _prenom = '', _tel = '', _sexe = 'inconnu', _gs = 'inconnu', _date = '';
   FirebaseAuth _auth = FirebaseAuth.instance;
   bool load = false;
 

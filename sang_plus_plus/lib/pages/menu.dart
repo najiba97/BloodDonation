@@ -43,14 +43,16 @@ class _MenuState extends State<Menu> {
             builder: (context, child) {
               List events = [];
               final event = Provider.of<QuerySnapshot>(context);
-              event.docs.forEach((element) {
-                DateTime dateTime = DateTime.parse(element['date']);
+              if (events.isNotEmpty) {
+                event.docs.forEach((element) {
+                  DateTime dateTime = DateTime.parse(element['date']);
 
-                DateTime timeNow = DateTime.now();
-                if (dateTime.isAfter(timeNow)) {
-                  events.add(element);
-                }
-              });
+                  DateTime timeNow = DateTime.now();
+                  if (dateTime.isAfter(timeNow)) {
+                    events.add(element);
+                  }
+                });
+              }
 
               return Scaffold(
                 backgroundColor: Colors.grey[200],
@@ -95,6 +97,7 @@ class _MenuState extends State<Menu> {
                         height: 20,
                       ),
                       MyCaroussel(),
+                      //hello
                       SizedBox(
                         height: 20,
                       ),
@@ -112,7 +115,7 @@ class _MenuState extends State<Menu> {
                       SizedBox(
                         height: 20,
                       ),
-                      event.docs.isEmpty
+                      events.isEmpty
                           ? Center(
                               child: Text('aucun événement pour le moment'))
                           : ListView.builder(
